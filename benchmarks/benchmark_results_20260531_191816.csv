@@ -1,0 +1,37 @@
+modelo,caso_id,caso_nombre,tipo,parse_ok,detectadas,tp,fp,fn,precision,recall,f1,alucinaciones,latencia_s
+qwen2.5-coder:7b,C1,Agente multiagente real (LangGraph + tools),true_positive,1,ChatOpenAI; LangChain,1,1,2,0.5,0.3333,0.4,0,15.17
+qwen3:4b,C1,Agente multiagente real (LangGraph + tools),true_positive,0,,0,0,0,0.0,0.0,0.0,0,101.23
+phi4-mini:3.8b,C1,Agente multiagente real (LangGraph + tools),true_positive,1,ChatOpenAI; LangGraph,1,1,2,0.5,0.3333,0.4,0,18.03
+granite-code:8b,C1,Agente multiagente real (LangGraph + tools),true_positive,1,Docker; FastAPI; LangChain; PostgreSQL; PyTorch,1,4,2,0.2,0.3333,0.25,0,48.92
+qwen2.5-coder:7b,C2,Trampa: LangChain solo en comentarios/docstrings,comment_trap,1,NumPy; Pandas,2,0,0,1.0,1.0,1.0,0,25.31
+qwen3:4b,C2,Trampa: LangChain solo en comentarios/docstrings,comment_trap,0,,0,0,0,0.0,0.0,0.0,0,87.95
+phi4-mini:3.8b,C2,Trampa: LangChain solo en comentarios/docstrings,comment_trap,1,NumPy; Pandas,2,0,0,1.0,1.0,1.0,0,15.96
+granite-code:8b,C2,Trampa: LangChain solo en comentarios/docstrings,comment_trap,1,NumPy; Pandas; Python,2,1,0,0.6667,1.0,0.8,0,32.18
+qwen2.5-coder:7b,C3,CRUD básico FastAPI + SQLAlchemy (sin IA),general,1,FastAPI; Pydantic; SQLAlchemy,3,0,0,1.0,1.0,1.0,0,24.84
+qwen3:4b,C3,CRUD básico FastAPI + SQLAlchemy (sin IA),general,0,,0,0,0,0.0,0.0,0.0,0,86.27
+phi4-mini:3.8b,C3,CRUD básico FastAPI + SQLAlchemy (sin IA),general,0,,0,0,0,0.0,0.0,0.0,0,17.04
+granite-code:8b,C3,CRUD básico FastAPI + SQLAlchemy (sin IA),general,1,FastAPI; Pydantic; SQLAlchemy,3,0,0,1.0,1.0,1.0,0,28.62
+qwen2.5-coder:7b,C4,Ambiguo: import LangChain presente pero sin chain real,ambiguous,1,LangChain,0,1,0,0.0,,,0,18.55
+qwen3:4b,C4,Ambiguo: import LangChain presente pero sin chain real,ambiguous,1,,0,0,0,,,,0,100.43
+phi4-mini:3.8b,C4,Ambiguo: import LangChain presente pero sin chain real,ambiguous,1,HumanMessage; LangChainOpenAI,0,2,0,0.0,,,0,15.15
+granite-code:8b,C4,Ambiguo: import LangChain presente pero sin chain real,ambiguous,1,ChatOpenAI; HumanMessage,0,2,0,0.0,,,0,30.49
+qwen2.5-coder:7b,C5,Fine-tuning PyTorch + HuggingFace Trainer,true_positive,1,Datasets; PyTorch; Transformers,2,1,0,0.6667,1.0,0.8,0,24.15
+qwen3:4b,C5,Fine-tuning PyTorch + HuggingFace Trainer,true_positive,0,,0,0,0,0.0,0.0,0.0,0,88.24
+phi4-mini:3.8b,C5,Fine-tuning PyTorch + HuggingFace Trainer,true_positive,0,,0,0,0,0.0,0.0,0.0,0,19.76
+granite-code:8b,C5,Fine-tuning PyTorch + HuggingFace Trainer,true_positive,1,Docker; Hugging Face; PyTorch; Transformers,2,2,0,0.5,1.0,0.6667,0,52.34
+qwen2.5-coder:7b,C6,Trampa: commit de fix CSS/HTML sin tecnologías IA,comment_trap,1,clamp(),0,1,0,0.0,,,0,22.48
+qwen3:4b,C6,Trampa: commit de fix CSS/HTML sin tecnologías IA,comment_trap,0,,0,0,0,,,,0,95.19
+phi4-mini:3.8b,C6,Trampa: commit de fix CSS/HTML sin tecnologías IA,comment_trap,1,,0,0,0,,,,0,22.85
+granite-code:8b,C6,Trampa: commit de fix CSS/HTML sin tecnologías IA,comment_trap,1,Docker; FastAPI; PostgreSQL; PyTorch; Python,0,5,0,0.0,,,2,56.72
+qwen2.5-coder:7b,C7,Pipeline RAG con Anthropic Claude + ChromaDB,true_positive,1,Anthropic; ChromaDB; SentenceTransformer,2,1,1,0.6667,0.6667,0.6667,0,25.29
+qwen3:4b,C7,Pipeline RAG con Anthropic Claude + ChromaDB,true_positive,1,Anthropic; ChromaDB; SentenceTransformers,2,1,1,0.6667,0.6667,0.6667,0,101.27
+phi4-mini:3.8b,C7,Pipeline RAG con Anthropic Claude + ChromaDB,true_positive,1,Anthropic; ChromaDB; SentenceTransformer,2,1,1,0.6667,0.6667,0.6667,0,26.24
+granite-code:8b,C7,Pipeline RAG con Anthropic Claude + ChromaDB,true_positive,1,FastAPI; PyTorch; Python,0,3,3,0.0,0.0,0.0,0,44.05
+qwen2.5-coder:7b,C8,Agente CrewAI con roles y herramientas personalizadas,true_positive,1,ChatOpenAI; LangChain,0,2,2,0.0,0.0,0.0,0,19.96
+qwen3:4b,C8,Agente CrewAI con roles y herramientas personalizadas,true_positive,0,,0,0,0,0.0,0.0,0.0,0,81.26
+phi4-mini:3.8b,C8,Agente CrewAI con roles y herramientas personalizadas,true_positive,0,,0,0,0,0.0,0.0,0.0,0,25.2
+granite-code:8b,C8,Agente CrewAI con roles y herramientas personalizadas,true_positive,1,Docker; FastAPI; LangChain; PostgreSQL; PyTorch,0,5,2,0.0,0.0,0.0,0,38.59
+granite-code:8b,TOTAL,— resumen modelo —,,8,,8,22,7,,,,2,331.91
+phi4-mini:3.8b,TOTAL,— resumen modelo —,,5,,5,4,3,,,,0,160.23
+qwen2.5-coder:7b,TOTAL,— resumen modelo —,,8,,10,7,5,,,,0,175.75
+qwen3:4b,TOTAL,— resumen modelo —,,2,,2,1,1,,,,0,741.84

@@ -1,0 +1,21 @@
+modelo,caso_id,caso_nombre,tipo,sim_relevante,sim_irrelevante,gap,hit_1,encode_ms
+all-MiniLM-L6-v2,C01,"ES→EN: consulta española, código en inglés",cross_lingual,0.427864,0.140047,0.287817,1,89.36
+all-MiniLM-L6-v2,C02,Exact match: PyTorch training explícito,exact_skill,0.421798,0.006462,0.415336,1,28.9
+all-MiniLM-L6-v2,C03,Skill inference: async sin la palabra 'async',inference,0.323126,0.240123,0.083004,1,31.53
+all-MiniLM-L6-v2,C04,False positive: Flask query vs Django code,false_positive_trap,0.657456,0.229994,0.427461,1,26.03
+all-MiniLM-L6-v2,C05,Domain trap: deep learning vs ML clásico (sklearn),domain_trap,0.241086,0.088547,0.152539,1,31.3
+all-MiniLM-L6-v2,C06,HR ES→EN: consulta RRHH vs perfil técnico,cross_lingual,0.273505,0.204343,0.069162,1,24.56
+all-MiniLM-L6-v2,C07,RAG pipeline developer query,exact_skill,0.119903,-0.04789,0.167793,1,138.56
+all-MiniLM-L6-v2,C08,DevOps: Kubernetes deployment query,exact_skill,0.326034,0.239298,0.086736,1,77.83
+all-MiniLM-L6-v2,C09,Testing: pytest vs teoría de QA,inference,0.120181,0.351821,-0.23164,0,129.39
+all-MiniLM-L6-v2,C10,Full profile: consulta RRHH compleja vs perfil técnico completo,cross_lingual,0.487639,0.239044,0.248595,1,88.0
+multilingual-e5-small,C01,"ES→EN: consulta española, código en inglés",cross_lingual,0.822857,0.768595,0.054263,1,94.62
+multilingual-e5-small,C02,Exact match: PyTorch training explícito,exact_skill,0.855176,0.788219,0.066957,1,68.67
+multilingual-e5-small,C03,Skill inference: async sin la palabra 'async',inference,0.818015,0.76624,0.051775,1,90.0
+multilingual-e5-small,C04,False positive: Flask query vs Django code,false_positive_trap,0.889169,0.814261,0.074908,1,139.96
+multilingual-e5-small,C05,Domain trap: deep learning vs ML clásico (sklearn),domain_trap,0.799114,0.786902,0.012212,1,178.01
+multilingual-e5-small,C06,HR ES→EN: consulta RRHH vs perfil técnico,cross_lingual,0.837857,0.817215,0.020642,1,139.97
+multilingual-e5-small,C07,RAG pipeline developer query,exact_skill,0.80875,0.753117,0.055634,1,358.14
+multilingual-e5-small,C08,DevOps: Kubernetes deployment query,exact_skill,0.834715,0.820358,0.014357,1,139.02
+multilingual-e5-small,C09,Testing: pytest vs teoría de QA,inference,0.805897,0.808517,-0.00262,0,309.13
+multilingual-e5-small,C10,Full profile: consulta RRHH compleja vs perfil técnico completo,cross_lingual,0.860789,0.803347,0.057442,1,170.14

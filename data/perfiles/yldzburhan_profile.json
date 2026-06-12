@@ -1,0 +1,512 @@
+{
+  "user": "yldzburhan",
+  "profile_source": "data\\procesado\\yldzburhan_processed.jsonl",
+  "total_skill_blocks": 61,
+  "unique_skills": 19,
+  "technical_profile": {
+    "hard_skills": [
+      {
+        "skill": "CatBoost",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7169,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Competitions"
+        ],
+        "evidence_files": [
+          "financial-analysis-for-fraud-detection-cat.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para entrenar un clasificador de fraudes."
+        ],
+        "sample_signals": [
+          "from catboost import CatBoostClassifier\nmodel = CatBoostClassifier()\nmodel.fit(X_train, y_train)"
+        ]
+      },
+      {
+        "skill": "Optuna",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7169,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Competitions"
+        ],
+        "evidence_files": [
+          "financial-analysis-for-fraud-detection-cat.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se utiliza para la optimización de hiperparámetros del modelo."
+        ],
+        "sample_signals": [
+          "import optuna\ndef objective(trial):\n    params = {\n        'iterations': trial.suggest_int('iterations', 100, 500),\n        # otros hiperparámetros\n    }\n    model.set_params(**params)\n    model.fit(X_train, y_train)\nstudy = optuna.create_study(direction='maximize')\nstudy.optimize(objective, n_trials=10)"
+        ]
+      },
+      {
+        "skill": "Seaborn",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.7106,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/Competitions"
+        ],
+        "evidence_files": [
+          "crm-rfm-cltv-prediction-analyses.ipynb",
+          "financial-analysis-for-fraud-detection-cat.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para crear gráficos estadísticos atractivos basados en Matplotlib.",
+          "Se usa para crear gráficos estadísticos a partir de los datos."
+        ],
+        "sample_signals": [
+          "import seaborn as sns\n\n# No se muestra uso explícito, pero es común en análisis de datos con Pandas.",
+          "import seaborn as sns\nsns.countplot(x='isFraud', data=df, palette=['#5cb85c', '#d9534f'])"
+        ]
+      },
+      {
+        "skill": "pandas",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7051,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Turkce-Kaynaklar"
+        ],
+        "evidence_files": [
+          "urun-siralama-stratejileri-rating-reviews.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para manipular y analizar datos de productos."
+        ],
+        "sample_signals": [
+          "import pandas as pd\n# ... Código que utiliza pandas para cargar y procesar datos de productos."
+        ]
+      },
+      {
+        "skill": "scipy.stats",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7051,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Turkce-Kaynaklar"
+        ],
+        "evidence_files": [
+          "urun-siralama-stratejileri-rating-reviews.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para cálculos estadísticos en el cálculo del promedio ponderado."
+        ],
+        "sample_signals": [
+          "import scipy.stats as st\n# ... Código que utiliza scipy.stats para calcular la media ponderada."
+        ]
+      },
+      {
+        "skill": "sklearn.preprocessing",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7051,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Turkce-Kaynaklar"
+        ],
+        "evidence_files": [
+          "urun-siralama-stratejileri-rating-reviews.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para normalizar los datos de productos."
+        ],
+        "sample_signals": [
+          "from sklearn.preprocessing import MinMaxScaler\n# ... Código que utiliza MinMaxScaler para escalar los datos."
+        ]
+      },
+      {
+        "skill": "JavaScript",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6858,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CarbonFootPrintCalculator"
+        ],
+        "evidence_files": [
+          "style/scripts.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Lenguaje de programación utilizado para añadir interactividad al sitio web."
+        ],
+        "sample_signals": [
+          "window.parent.document.getElementById('button-17').addEventListener('click', showPopup);"
+        ]
+      },
+      {
+        "skill": "DOM Manipulation",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6858,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CarbonFootPrintCalculator"
+        ],
+        "evidence_files": [
+          "style/scripts.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Manipulación del Document Object Model para cambiar el estilo y contenido de los elementos HTML."
+        ],
+        "sample_signals": [
+          "window.parent.document.getElementById('popup').style.display = 'block';"
+        ]
+      },
+      {
+        "skill": "Matplotlib",
+        "confidence": "alta",
+        "evidence_count": 8,
+        "avg_composite_score": 0.6813,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/CarbonFootPrintCalculator",
+          "yldzburhan/Competitions",
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "app.py",
+          "crm-rfm-cltv-prediction-analyses.ipynb",
+          "customer-centric-growth-crm-rfm-and-cltv-p.ipynb",
+          "financial-analysis-for-fraud-detection-cat.ipynb",
+          "from-text-to-insights-nlp-in-strategy-games.ipynb",
+          "functions.py",
+          "requirements.txt",
+          "style/requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para crear gráficos y visualizaciones en Python.",
+          "Librería para crear gráficos y visualizaciones.",
+          "Librería para crear gráficos y visualizaciones de datos."
+        ],
+        "sample_signals": [
+          "import matplotlib.pyplot as plt\n# No se usa explícitamente en el código proporcionado.",
+          "import matplotlib.pyplot as plt",
+          "matplotlib==3.8.0",
+          "matplotlib==3.7.1"
+        ]
+      },
+      {
+        "skill": "Pillow",
+        "confidence": "media",
+        "evidence_count": 4,
+        "avg_composite_score": 0.6725,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CarbonFootPrintCalculator"
+        ],
+        "evidence_files": [
+          "app.py",
+          "functions.py",
+          "requirements.txt",
+          "style/requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para manipular imágenes en Python.",
+          "Biblioteca para manipulación de imágenes.",
+          "Librería para manipulación de imágenes."
+        ],
+        "sample_signals": [
+          "from PIL import Image, ImageDraw, ImageFont",
+          "Pillow==9.0.1",
+          "pillow==9.4.0"
+        ]
+      },
+      {
+        "skill": "Surprise",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6701,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "books-collaborative-filtering.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se utiliza para implementar y evaluar sistemas de recomendación basados en modelos."
+        ],
+        "sample_signals": [
+          "from surprise import Reader, SVD, Dataset, accuracy"
+        ]
+      },
+      {
+        "skill": "SpaCy",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6701,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "from-text-to-insights-nlp-in-strategy-games.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para realizar lematización de los textos."
+        ],
+        "sample_signals": [
+          "import spacy\nnlp = spacy.load('en_core_web_sm')\ndef lemmatize(text):\n    doc = nlp(text)\n    tokens = [token for token in doc if not token.is_punct]\n    lemmas = [token.lemma_ if token.pos_ != 'PRON' else token.orth_ for token in tokens]\n    return lemmas"
+        ]
+      },
+      {
+        "skill": "MLxtend",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6701,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "personalized-anime-recommendations.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para aplicar técnicas de aprendizaje automático y minería de datos."
+        ],
+        "sample_signals": [
+          "from mlxtend.frequent_patterns import apriori, association_rules\n\nfrequent_itemsets = apriori(user_anime_matrix,min_support=0.1,use_colnames=True,low_memory=True)"
+        ]
+      },
+      {
+        "skill": "Statsmodels",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.6697,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "customer-centric-growth-crm-rfm-and-cltv-p.ipynb",
+          "personalized-anime-recommendations.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para realizar análisis estadísticos descriptivos.",
+          "Se usa para el análisis estadístico y modelado de datos."
+        ],
+        "sample_signals": [
+          "import statsmodels.stats.api as sms\n\nlow_conf, up_conf = sms.DescrStatsW(df[\"anime_id\"].value_counts()).tconfint_mean()",
+          "import statsmodels.api as sm\n\nmodel = sm.OLS(y, X).fit()"
+        ]
+      },
+      {
+        "skill": "Pandas",
+        "confidence": "alta",
+        "evidence_count": 12,
+        "avg_composite_score": 0.668,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/CarbonFootPrintCalculator",
+          "yldzburhan/Competitions",
+          "yldzburhan/Python-Numpy-Pandas",
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py",
+          "books-collaborative-filtering.ipynb",
+          "crm-rfm-cltv-prediction-analyses.ipynb",
+          "customer-centric-growth-crm-rfm-and-cltv-p.ipynb",
+          "data-manipulation-numpy-pandas-tutorial.ipynb",
+          "financial-analysis-for-fraud-detection-cat.ipynb",
+          "from-text-to-insights-nlp-in-strategy-games.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Usado para manipulación y análisis de datos.",
+          "Biblioteca para el análisis y manipulación de datos.",
+          "Biblioteca para análisis de datos y manipulación de tablas."
+        ],
+        "sample_signals": [
+          "import pandas as pd\n# Código que utiliza Pandas para manipular datos",
+          "import pandas as pd\n# No se usa explícitamente en el código proporcionado.",
+          "import pandas as pd",
+          "pandas==1.4.2"
+        ]
+      },
+      {
+        "skill": "Scikit-learn",
+        "confidence": "alta",
+        "evidence_count": 7,
+        "avg_composite_score": 0.6676,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/CarbonFootPrintCalculator",
+          "yldzburhan/Competitions",
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "app.py",
+          "crm-rfm-cltv-prediction-analyses.ipynb",
+          "customer-centric-growth-crm-rfm-and-cltv-p.ipynb",
+          "financial-analysis-for-fraud-detection-cat.ipynb",
+          "from-text-to-insights-nlp-in-strategy-games.ipynb",
+          "requirements.txt",
+          "style/requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca de aprendizaje automático para Python.",
+          "Biblioteca para aprendizaje automático y análisis predictivo.",
+          "Biblioteca para aprendizaje automático y análisis de datos."
+        ],
+        "sample_signals": [
+          "from sklearn.neural_network import MLPRegressor\nfrom sklearn.preprocessing import StandardScaler",
+          "scikit-learn==1.3.2",
+          "scikit-learn==1.3.1",
+          "from sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.metrics.pairwise import cosine_similarity\ncosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)"
+        ]
+      },
+      {
+        "skill": "NumPy",
+        "confidence": "alta",
+        "evidence_count": 10,
+        "avg_composite_score": 0.6629,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CRM-Analytics-RFM-Customer-Life-Time-Value-Prediction",
+          "yldzburhan/CarbonFootPrintCalculator",
+          "yldzburhan/Python-Numpy-Pandas",
+          "yldzburhan/Recommendation-Systems"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py",
+          "books-collaborative-filtering.ipynb",
+          "crm-rfm-cltv-prediction-analyses.ipynb",
+          "customer-centric-growth-crm-rfm-and-cltv-p.ipynb",
+          "data-manipulation-numpy-pandas-tutorial.ipynb",
+          "functions.py",
+          "personalized-anime-recommendations.ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Utilizado para operaciones numéricas y manipulación de arrays.",
+          "Biblioteca para operaciones numéricas y arrays multidimensionales.",
+          "Librería para operaciones numéricas y arrays multidimensionales."
+        ],
+        "sample_signals": [
+          "import numpy as np\n# Código que utiliza NumPy para realizar operaciones numéricas",
+          "import numpy as np\n# No se usa explícitamente en el código proporcionado.",
+          "import numpy as np",
+          "numpy==1.22.3"
+        ]
+      },
+      {
+        "skill": "Streamlit",
+        "confidence": "alta",
+        "evidence_count": 5,
+        "avg_composite_score": 0.649,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CarbonFootPrintCalculator"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py",
+          "functions.py",
+          "requirements.txt",
+          "style/requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Usado para crear la interfaz web del proyecto.",
+          "Framework para crear aplicaciones web de datos interactivas.",
+          "Framework para crear aplicaciones web interactivas."
+        ],
+        "sample_signals": [
+          "import streamlit as st\n# Código que utiliza Streamlit para crear componentes de la interfaz web",
+          "import streamlit as st\nst.set_page_config(layout=\"wide\",page_title=\"Carbon Footprint Calculator\", page_icon=\"./media/favicon.ico\")",
+          "from streamlit.components.v1 import html\nhtml(open_script, width=0, height=0)",
+          "streamlit==1.29.0"
+        ]
+      },
+      {
+        "skill": "scikit-learn",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5548,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "yldzburhan/CarbonFootPrintCalculator"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Implementado algoritmos de aprendizaje automático."
+        ],
+        "sample_signals": [
+          "from sklearn.model_selection import train_test_split\n# Código que utiliza scikit-learn para dividir datos en conjuntos de entrenamiento y prueba"
+        ]
+      }
+    ]
+  }
+}

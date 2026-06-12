@@ -1,0 +1,517 @@
+{
+  "user": "HalemoGPA",
+  "profile_source": "data\\procesado\\HalemoGPA_processed.jsonl",
+  "total_skill_blocks": 47,
+  "unique_skills": 24,
+  "technical_profile": {
+    "hard_skills": [
+      {
+        "skill": "Streamlit",
+        "confidence": "alta",
+        "evidence_count": 4,
+        "avg_composite_score": 0.8297,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para crear la interfaz de usuario y mostrar los resultados.",
+          "Framework para crear aplicaciones web interactivas de Python.",
+          "Framework para crear aplicaciones web interactivas rápidamente."
+        ],
+        "sample_signals": [
+          "@st.cache_data(key='analyze_cache')\ndef _analyze(image_bytes):\n    # Análisis del modelo\n    pass",
+          "Root cause via 'hf spaces logs': Streamlit boots, then immediately 'Stopping...' on HF Spaces.",
+          "import streamlit as st",
+          "- Rewrite app.py with gradient hero, numbered step badges, color-coded\n  confidence, custom probability bars, side-by-side image grid, sample buttons, \"Start over\", PDF report download"
+        ]
+      },
+      {
+        "skill": "Grad-CAM",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.8297,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para generar mapeos de calor sobre las imágenes.",
+          "Método de visualización de características para redes neuronales convolucionales."
+        ],
+        "sample_signals": [
+          "# Generación de Grad-CAM\ngrad_cam = generate_grad_cam(model, image)",
+          "- Add Grad-CAM heatmap explainability (pytorch-grad-cam)"
+        ]
+      },
+      {
+        "skill": "reportlab",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8297,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se utiliza para generar el informe PDF con diseño personalizado."
+        ],
+        "sample_signals": [
+          "from reportlab.lib.pagesizes import letter\nfrom reportlab.pdfgen import canvas"
+        ]
+      },
+      {
+        "skill": "uvicorn",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8297,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Servidor ASGI para ejecutar aplicaciones web de Python."
+        ],
+        "sample_signals": [
+          "- Migrate from broken requirements.txt (unresolvable torch/torchvision pin)\n  to pyproject.toml + uv.lock; export requirements.txt for Streamlit Cloud"
+        ]
+      },
+      {
+        "skill": "Docker",
+        "confidence": "alta",
+        "evidence_count": 4,
+        "avg_composite_score": 0.787,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch",
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para crear y ejecutar contenedores con las dependencias necesarias.",
+          "Herramienta para crear y distribuir contenedores de aplicaciones.",
+          "Se usa para gestionar la infraestructura de los contenedores."
+        ],
+        "sample_signals": [
+          "Dockerfile: copy source before pip install (hatchling needs src/ to exist)\nDockerfile: chmod source so non-root container user can read",
+          "- Add .streamlit/config.toml dark theme, Dockerfile, runtime.txt,\n  huggingface-space.md deploy guide",
+          "- Widen typing SVG from 600 to 750px, shorten lines, reduce font to 20\n- Remove Top Languages card (github-readme-stats rate-limited)\n- Remove Trophies card (github-profile-trophy rate-limited)",
+          "FROM python:3.9\nCOPY . /app\nWORKDIR /app\nRUN pip install -r requirements.txt"
+        ]
+      },
+      {
+        "skill": "OpenCV-Python-Headless",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7772,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se utiliza para procesar imágenes sin requerir una interfaz gráfica."
+        ],
+        "sample_signals": [
+          "import cv2\nimage = cv2.imread('path_to_image')"
+        ]
+      },
+      {
+        "skill": "OpenCV",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7772,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para procesar imágenes de MRI."
+        ],
+        "sample_signals": [
+          "- Add opencv-python-headless dep so cv2 works without GUI system libs"
+        ]
+      },
+      {
+        "skill": "React",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para crear la interfaz de usuario con componentes reactivos y animados."
+        ],
+        "sample_signals": [
+          "import React from 'react';\n\nconst Profile = () => {\n  return (\n    <div className=\"profile\">\n      <h1>Profile</h1>\n      <p>About section with YAML-style content.</p>\n    </div>\n  );\n};\n\nexport default Profile;"
+        ]
+      },
+      {
+        "skill": "CSS",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para estilizar el perfil con gradientes, colores y animaciones."
+        ],
+        "sample_signals": [
+          "h1 {\n  background: linear-gradient(to right, #ff9a9e, #fad0c4);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n.profile {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}"
+        ]
+      },
+      {
+        "skill": "TypeScript",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para tipar el código y mejorar la seguridad y la legibilidad."
+        ],
+        "sample_signals": [
+          "import React from 'react';\n\ninterface ProfileProps {\n  name: string;\n  about: string;\n}\n\nconst Profile: React.FC<ProfileProps> = ({ name, about }) => {\n  return (\n    <div className=\"profile\">\n      <h1>{name}</h1>\n      <p>{about}</p>\n    </div>\n  );\n};\n\nexport default Profile;"
+        ]
+      },
+      {
+        "skill": "Styled Components",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para crear estilos CSS de manera modular y reutilizable."
+        ],
+        "sample_signals": [
+          "import styled from 'styled-components';\n\nconst Container = styled.div`\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n`;\n\nconst Profile = () => {\n  return (\n    <Container>\n      <h1>Profile</h1>\n      <p>About section with YAML-style content.</p>\n    </Container>\n  );\n};\n\nexport default Profile;"
+        ]
+      },
+      {
+        "skill": "React Router",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para manejar las rutas de la aplicación y navegar entre diferentes componentes."
+        ],
+        "sample_signals": [
+          "import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n\nconst App = () => {\n  return (\n    <Router>\n      <Switch>\n        <Route path=\"/profile\" exact component={Profile} />\n      </Switch>\n    </Router>\n  );\n};\n\nexport default App;"
+        ]
+      },
+      {
+        "skill": "Axios",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para hacer solicitudes HTTP y obtener datos de la API."
+        ],
+        "sample_signals": [
+          "import axios from 'axios';\n\nconst fetchProfileData = async () => {\n  try {\n    const response = await axios.get('/api/profile');\n    console.log(response.data);\n  } catch (error) {\n    console.error('Error fetching profile data:', error);\n  }\n};\n\nfetchProfileData();"
+        ]
+      },
+      {
+        "skill": "Redux",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para gestionar el estado global de la aplicación."
+        ],
+        "sample_signals": [
+          "import { createStore } from 'redux';\n\nconst initialState = {\n  profile: {}\n};\n\nconst reducer = (state = initialState, action) => {\n  switch (action.type) {\n    case 'SET_PROFILE':\n      return { ...state, profile: action.payload };\n    default:\n      return state;\n  }\n};\n\nconst store = createStore(reducer);\n\nstore.dispatch({ type: 'SET_PROFILE', payload: { name: 'John Doe', about: 'AI & Automation Engineer' } });"
+        ]
+      },
+      {
+        "skill": "Jest",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para escribir y ejecutar pruebas unitarias."
+        ],
+        "sample_signals": [
+          "import React from 'react';\nimport { render, screen } from '@testing-library/react';\nimport Profile from './Profile';\n\ndescribe('Profile component', () => {\n  test('renders profile name and about section', () => {\n    render(<Profile name=\"John Doe\" about=\"AI & Automation Engineer\" />);\n    expect(screen.getByText('John Doe')).toBeInTheDocument();\n    expect(screen.getByText('AI & Automation Engineer')).toBeInTheDocument();\n  });\n});"
+        ]
+      },
+      {
+        "skill": "React Testing Library",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para escribir pruebas de componentes React."
+        ],
+        "sample_signals": [
+          "import React from 'react';\nimport { render, screen } from '@testing-library/react';\nimport Profile from './Profile';\n\ndescribe('Profile component', () => {\n  test('renders profile name and about section', () => {\n    render(<Profile name=\"John Doe\" about=\"AI & Automation Engineer\" />);\n    expect(screen.getByText('John Doe')).toBeInTheDocument();\n    expect(screen.getByText('AI & Automation Engineer')).toBeInTheDocument();\n  });\n});"
+        ]
+      },
+      {
+        "skill": "FastAPI",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Framework para crear APIs de backend"
+        ],
+        "sample_signals": [
+          "from fastapi import FastAPI\napp = FastAPI()"
+        ]
+      },
+      {
+        "skill": "PostgreSQL",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7706,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Sistema de gestión de bases de datos relacional"
+        ],
+        "sample_signals": [
+          "import psycopg2\nconn = psycopg2.connect(database='mydb', user='user', password='password', host='localhost')"
+        ]
+      },
+      {
+        "skill": "PyTorch",
+        "confidence": "alta",
+        "evidence_count": 15,
+        "avg_composite_score": 0.7433,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch",
+          "HalemoGPA/HalemoGPA"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Se usa para la clasificación de tumores en imágenes de MRI.",
+          "Librería de IA y aprendizaje automático para Python.",
+          "Framework de IA utilizado para la clasificación de tumores en imágenes de resonancia magnética."
+        ],
+        "sample_signals": [
+          "from transformers import AutoModelForImageClassification, AutoTokenizer\nmodel = AutoModelForImageClassification.from_pretrained('brainmri-tumor-classifier')\ntokenizer = AutoTokenizer.from_pretrained('brainmri-tumor-classifier')",
+          "torch's module-loading on Streamlit 1.50+",
+          "from torch import nn, optim\nimport torch.nn.functional as F",
+          "import torch\nfrom torch import nn, optim"
+        ]
+      },
+      {
+        "skill": "requests",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6924,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "librería para hacer solicitudes HTTP"
+        ],
+        "sample_signals": [
+          "Bump requests from 2.31.0 to 2.32.2"
+        ]
+      },
+      {
+        "skill": "HF Spaces",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6897,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Plataforma para crear y compartir aplicaciones de IA en tiempo real."
+        ],
+        "sample_signals": [
+          "Add HF Spaces frontmatter and live demo URL"
+        ]
+      },
+      {
+        "skill": "certifi",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6793,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Librería para manejar certificados SSL/TLS en Python."
+        ],
+        "sample_signals": [
+          "Bump certifi from 2024.2.2 to 2024.7.4"
+        ]
+      },
+      {
+        "skill": "JavaScript",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.667,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "HalemoGPA/HalemoGPA",
+          "HalemoGPA/Learn-Js"
+        ],
+        "evidence_files": [
+          "Week1/assignment 2/main.js"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "El código utiliza JavaScript para manipular el DOM y cambiar estilos de elementos HTML.",
+          "Se usa para implementar la lógica de la aplicación, como el efecto de escritura y las animaciones."
+        ],
+        "sample_signals": [
+          "document.write(\"<h1>Elzero</h1>\");\nlet Elzero = document.getElementsByTagName(\"h1\")[0];\nElzero.style.color = \"blue\";\nElzero.style.font = \"bold 80px Arial\";\nElzero.style.textAlign = \"center\";",
+          "const typingAnimation = () => {\n  const textElement = document.getElementById('typing-text');\n  let index = 0;\n  const text = 'Welcome to my profile!';\n\n  const type = () => {\n    if (index < text.length) {\n      textElement.textContent += text.charAt(index);\n      index++;\n      setTimeout(type, 150);\n    }\n  };\n\n  type();\n};\n\nwindow.onload = typingAnimation;"
+        ]
+      },
+      {
+        "skill": "urllib3",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.6348,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "HalemoGPA/BrainMRI-Tumor-Classifier-Pytorch"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "librería para manejar solicitudes HTTP en Python",
+          "Biblioteca de manejo de solicitudes HTTP en Python."
+        ],
+        "sample_signals": [
+          "Bump urllib3 from 2.2.2 to 2.6.3",
+          "Merge pull request #4 from HalemoGPA/dependabot/pip/urllib3-2.2.2\n\nBump urllib3 from 2.2.1 to 2.2.2"
+        ]
+      }
+    ]
+  }
+}

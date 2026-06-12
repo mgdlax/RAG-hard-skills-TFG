@@ -1,0 +1,1042 @@
+{
+  "user": "ranguy9304",
+  "profile_source": "data\\procesado\\ranguy9304_processed.jsonl",
+  "total_skill_blocks": 59,
+  "unique_skills": 46,
+  "technical_profile": {
+    "hard_skills": [
+      {
+        "skill": "dotenv",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8159,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para cargar variables de entorno desde un archivo .env."
+        ],
+        "sample_signals": [
+          "from dotenv import load_dotenv\nimport os\nload_dotenv()\ndebug_mode = os.getenv(\"DEBUG\") == \"True\""
+        ]
+      },
+      {
+        "skill": "os",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8159,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Módulo estándar de Python para interactuar con el sistema operativo."
+        ],
+        "sample_signals": [
+          "import os\ndebug_mode = os.getenv(\"DEBUG\") == \"True\""
+        ]
+      },
+      {
+        "skill": "ChatOpenAI",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7809,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/models.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Modelo de lenguaje basado en OpenAI para generar respuestas a preguntas."
+        ],
+        "sample_signals": [
+          "llm = ChatOpenAI(model=\"gpt-3.5-turbo-0125\", temperature=0)"
+        ]
+      },
+      {
+        "skill": "ChatPromptTemplate",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7809,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/models.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Plantilla para crear prompts de chat interactivos."
+        ],
+        "sample_signals": [
+          "system = \"You are an expert at routing a user question to a vectorstore or casual_convo.\"\nroute_prompt = ChatPromptTemplate.from_messages([(\"system\", system), (\"human\", \"{question}\")])"
+        ]
+      },
+      {
+        "skill": "StrOutputParser",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7809,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/models.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Parser para convertir la salida del modelo en una cadena de texto."
+        ],
+        "sample_signals": [
+          "rag_chain = prompt | llm | StrOutputParser()"
+        ]
+      },
+      {
+        "skill": "FastAPI",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7374,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "main.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para crear APIs rápidas con Python 3.7+ basado en standard type hints."
+        ],
+        "sample_signals": [
+          "app = Graph.create(nodes)"
+        ]
+      },
+      {
+        "skill": "OpenAIEmbeddings",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7284,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase para generar embeddings utilizando el modelo de OpenAI."
+        ],
+        "sample_signals": [
+          "self.embedding = OpenAIEmbeddings()"
+        ]
+      },
+      {
+        "skill": "Chroma",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7284,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Vector store que permite almacenar y recuperar documentos con embeddings."
+        ],
+        "sample_signals": [
+          "vectordb = Chroma(persist_directory=self.persist_directory, embedding_function=self.embedding)\n\nvectordb = Chroma.from_documents(documents=texts, embedding=self.embedding, persist_directory=self.persist_directory)"
+        ]
+      },
+      {
+        "skill": "UnstructuredMarkdownLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7284,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "modules/loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador para documentos Markdown no estructurados."
+        ],
+        "sample_signals": [
+          "loader = DirectoryLoader(self.data_directory+'/', glob='./*.md', loader_cls=UnstructuredMarkdownLoader)"
+        ]
+      },
+      {
+        "skill": "SvelteKitAuth",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6971,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/hooks.server.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Autenticación de usuarios con SvelteKit usando proveedores y adaptadores."
+        ],
+        "sample_signals": [
+          "import { SvelteKitAuth } from '@auth/sveltekit';\n\nexport const { handle } = SvelteKitAuth({"
+        ]
+      },
+      {
+        "skill": "MongoDBAdapter",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6971,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/hooks.server.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Adaptador para MongoDB en la autenticación de usuarios."
+        ],
+        "sample_signals": [
+          "adapter: MongoDBAdapter(clientPromise, { databaseName: NODE_ENV }),"
+        ]
+      },
+      {
+        "skill": "GoogleProvider",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6971,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/hooks.server.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Proveedor de autenticación con Google."
+        ],
+        "sample_signals": [
+          "GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })"
+        ]
+      },
+      {
+        "skill": "NodemailerProvider",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6971,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/hooks.server.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Proveedor de envío de correos electrónicos usando Nodemailer."
+        ],
+        "sample_signals": [
+          "NodemailerProvider({\n   server: {\n    host: SMTP_HOST,\n    port: Number(SMTP_PORT),"
+        ]
+      },
+      {
+        "skill": "LangChain",
+        "confidence": "alta",
+        "evidence_count": 9,
+        "avg_composite_score": 0.6896,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          ".env.example",
+          "README.md",
+          "main.py",
+          "modules/graph.py",
+          "modules/loader.py",
+          "modules/models.py",
+          "modules/nodes.py",
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para la construcción de aplicaciones de IA y LLM.",
+          "Framework para IA y LLM utilizado en la arquitectura del sistema.",
+          "Se usa para crear un grafo de estados y definir nodos en el flujo de trabajo."
+        ],
+        "sample_signals": [
+          "OPENAI_API_KEY=sk-1234455... # this is a fake key use your own key",
+          "from langchain import LangChain\nlc = LangChain()",
+          "from modules.models import Router, DocGrader, Generator, HallucinationGrader, AnswerGrader, QuestionRewriter",
+          "from langgraph.graph import END, StateGraph\nworkflow = StateGraph(GraphState)"
+        ]
+      },
+      {
+        "skill": "Tailwind CSS",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.6886,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "package.json",
+          "tailwind.config.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework de diseño utilitario para construir interfaces de usuario rápidamente.",
+          "Framework de diseño para React, Vue y Svelte"
+        ],
+        "sample_signals": [
+          "\"devDependencies\": {\n\t\"tailwindcss\": \"^3.4.4\",\n\t...\n}",
+          "import { fontFamily } from \"tailwindcss/defaultTheme\";\n\n/** @type {import('tailwindcss').Config} */\nconst config = {\ndarkMode: [\"class\"],\ncontent: [\"./src/**/*.{html,js,svelte,ts}\"]"
+        ]
+      },
+      {
+        "skill": "clsx",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6881,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/lib/utils.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Utilizado para combinar clases de CSS condicionalmente."
+        ],
+        "sample_signals": [
+          "import { clsx } from \"clsx\";"
+        ]
+      },
+      {
+        "skill": "tailwind-merge",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6881,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/lib/utils.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Combinación segura de clases de Tailwind CSS."
+        ],
+        "sample_signals": [
+          "import { twMerge } from \"tailwind-merge\";"
+        ]
+      },
+      {
+        "skill": "svelte/easing",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6881,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/lib/utils.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Funciones de animación para Svelte."
+        ],
+        "sample_signals": [
+          "import { cubicOut } from \"svelte/easing\";"
+        ]
+      },
+      {
+        "skill": "pdf2docx",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6779,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Conversión de PDF a DOCX para optimizar la representación del documento."
+        ],
+        "sample_signals": [
+          "import pdf2docx\n\ndoc = Converter('example.pdf')\ndoc.convert('output.docx', start=0, end=None)\ndoc.close()"
+        ]
+      },
+      {
+        "skill": "PyMuPDF",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6779,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Extracción de texto y metadatos de PDF."
+        ],
+        "sample_signals": [
+          "import fitz  # PyMuPDF\n\ndoc = fitz.open('example.pdf')\npage = doc.load_page(0)\ntext = page.get_text()"
+        ]
+      },
+      {
+        "skill": "Markdown",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6779,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Formato de documento para la representación optimizada."
+        ],
+        "sample_signals": [
+          "# Markdown content\n\nThis is a markdown file."
+        ]
+      },
+      {
+        "skill": "Google Login",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6774,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [],
+        "artifact_types": [
+          "commit"
+        ],
+        "sample_explanations": [
+          "Implementación de Google Login para la página protegida."
+        ],
+        "sample_signals": [
+          "google login done for the protected page"
+        ]
+      },
+      {
+        "skill": "OpenAI",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "API para el desarrollo de aplicaciones basadas en inteligencia artificial y aprendizaje automático."
+        ],
+        "sample_signals": [
+          "openai"
+        ]
+      },
+      {
+        "skill": "Pandas",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para el análisis y manipulación de datos tabulares."
+        ],
+        "sample_signals": [
+          "pandas"
+        ]
+      },
+      {
+        "skill": "NumPy",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para la computación científica en Python."
+        ],
+        "sample_signals": [
+          "numpy"
+        ]
+      },
+      {
+        "skill": "Streamlit",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para crear aplicaciones web interactivas de datos y IA."
+        ],
+        "sample_signals": [
+          "streamlit"
+        ]
+      },
+      {
+        "skill": "Vite",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6711,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "package.json"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework de desarrollo frontend para aplicaciones web modernas."
+        ],
+        "sample_signals": [
+          "\"scripts\": {\n\t\"dev\": \"vite dev\",\n\t\"build\": \"vite build\",\n\t\"preview\": \"vite preview\"\n}"
+        ]
+      },
+      {
+        "skill": "Svelte",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6711,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "package.json"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework de desarrollo frontend para crear aplicaciones web interactivas."
+        ],
+        "sample_signals": [
+          "\"dependencies\": {\n\t\"svelte\": \"^4.2.7\",\n\t...\n}"
+        ]
+      },
+      {
+        "skill": "bits-ui",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6611,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/lib/components/ui/select/index.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa como base para componentes de interfaz de usuario."
+        ],
+        "sample_signals": [
+          "import { Select as SelectPrimitive } from \"bits-ui\";"
+        ]
+      },
+      {
+        "skill": "MongoDB",
+        "confidence": "media",
+        "evidence_count": 3,
+        "avg_composite_score": 0.6468,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "package.json",
+          "src/lib/database/clientPromise.js"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "Base de datos NoSQL orientada a documentos para almacenar y gestionar datos.",
+          "Base de datos utilizada para almacenar y gestionar los perfiles técnicos de desarrolladores.",
+          "Base de datos utilizada para almacenar los detalles de inicio de sesión."
+        ],
+        "sample_signals": [
+          "\"dependencies\": {\n\t\"mongodb\": \"^6.7.0\",\n\t...\n}",
+          "import { MongoClient } from 'mongodb';\n\nconst uri = MONGODB_CONNECTION_STRING;\nconst options = {};\n\nlet client;\nlet clientPromise;",
+          "all the login details stored in mongodb"
+        ]
+      },
+      {
+        "skill": "TailwindCSS",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6186,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "postcss.config.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para diseño de interfaces de usuario"
+        ],
+        "sample_signals": [
+          "tailwindcss: {}"
+        ]
+      },
+      {
+        "skill": "Autoprefixer",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6186,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "postcss.config.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Herramienta para agregar prefijos CSS automáticamente"
+        ],
+        "sample_signals": [
+          "autoprefixer: {}"
+        ]
+      },
+      {
+        "skill": "PyTorch",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.5977,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "data/md/L1-Introduction.pdf.md",
+          "data/model-table.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para definir y entrenar modelos de lenguaje.",
+          "Se usa para entrenar y evaluar modelos de lenguaje."
+        ],
+        "sample_signals": [
+          "import torch\nfrom torch import nn, optim",
+          "import torch\nfrom transformers import BertTokenizer, BertForSequenceClassification"
+        ]
+      },
+      {
+        "skill": "Transformers",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.5977,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "data/md/L1-Introduction.pdf.md",
+          "data/model-table.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se utiliza para cargar y trabajar con modelos pre-entrenados de lenguaje.",
+          "Biblioteca de huggingface para trabajar con modelos de lenguaje pre-entrenados."
+        ],
+        "sample_signals": [
+          "from transformers import AutoModelForCausalLM, AutoTokenizer",
+          "from transformers import BertTokenizer, BertForSequenceClassification"
+        ]
+      },
+      {
+        "skill": "SvelteKit",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5916,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/conspire"
+        ],
+        "evidence_files": [
+          "src/routes/protected/+layout.server.js"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para aplicaciones web basadas en componentes."
+        ],
+        "sample_signals": [
+          "import { redirect } from '@sveltejs/kit';"
+        ]
+      },
+      {
+        "skill": "PDFMiner",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5849,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          ".env.example"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para extraer texto de PDFs."
+        ],
+        "sample_signals": [
+          "CONVERT_PDF_TO_MD=True"
+        ]
+      },
+      {
+        "skill": "MediaPipe",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5751,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/Android_LLM_Inference"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework para la creación de aplicaciones de inteligencia artificial y aprendizaje automático."
+        ],
+        "sample_signals": [
+          "This is a sample app that demonstrates how to use the LLM Inference API to run common text-to-text generation tasks like information retrieval, email drafting, and document summarization."
+        ]
+      },
+      {
+        "skill": "LLM Inference",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5751,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/Android_LLM_Inference"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "API para la inferencia de modelos de lenguaje grande."
+        ],
+        "sample_signals": [
+          "This is a sample app that demonstrates how to use the LLM Inference API to run common text-to-text generation tasks like information retrieval, email drafting, and document summarization."
+        ]
+      },
+      {
+        "skill": "Android Studio",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5751,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/Android_LLM_Inference"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "IDE para el desarrollo de aplicaciones Android."
+        ],
+        "sample_signals": [
+          "*   The **[Android Studio](https://developer.android.com/studio/index.html) IDE. This sample has been tested on Android Studio Hedgehog."
+        ]
+      },
+      {
+        "skill": "OpenAI GPT",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5674,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "API de lenguaje natural proporcionada por OpenAI utilizada para generar respuestas a las consultas."
+        ],
+        "sample_signals": [
+          "OPENAI_API_KEY=your_gpt_key_here\n# Use the API to generate responses"
+        ]
+      },
+      {
+        "skill": "LangGraph",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5674,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework utilizado para gestionar el flujo y las interacciones entre los módulos del sistema."
+        ],
+        "sample_signals": [
+          "from langgraph import LangGraph\nlg = LangGraph()"
+        ]
+      },
+      {
+        "skill": "wkhtmltopdf",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5674,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Herramienta de línea de comandos para convertir páginas web en PDF."
+        ],
+        "sample_signals": [
+          "choco install wkhtmltopdf"
+        ]
+      },
+      {
+        "skill": "GitHub Readme Stats",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5658,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/ranguy9304"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Muestra estadísticas de lenguajes y actividad en el README."
+        ],
+        "sample_signals": [
+          "<img src=\"https://github-readme-stats.vercel.app/api/top-langs/?username=ranguy9304&langs_count=6&theme=gruvbox&layout=compact&hide_border=true\" alt=\"ranguy9304 :: Top Langs\" /></a>"
+        ]
+      },
+      {
+        "skill": "GitHub Readme Activity Graph",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5658,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/ranguy9304"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Muestra un gráfico de actividad en el README."
+        ],
+        "sample_signals": [
+          "<img alt=\"ranguy9304's Activity Graph\" src=\"https://github-readme-activity-graph.vercel.app/graph?username=ranguy9304&theme=github\" /></a>"
+        ]
+      },
+      {
+        "skill": "Docker",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5584,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/LangGraphRAG"
+        ],
+        "evidence_files": [
+          "data/model-table.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se usa para contenerizar la aplicación."
+        ],
+        "sample_signals": [
+          "FROM python:3.8-slim\nCOPY . /app\nWORKDIR /app\nRUN pip install -r requirements.txt"
+        ]
+      },
+      {
+        "skill": "Siamese networks",
+        "confidence": "baja",
+        "evidence_count": 1,
+        "avg_composite_score": 0.3744,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "ranguy9304/Siam-Vector-Search"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Se utiliza para mejorar las búsquedas de similitud vectorial en Siam-Vector Search."
+        ],
+        "sample_signals": [
+          "Siam-Vector Search uses Siamese networks to improve vector similarity searches, making retrieval-augmented generation (RAG) systems more accurate."
+        ]
+      }
+    ]
+  }
+}

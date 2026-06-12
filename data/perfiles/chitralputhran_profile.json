@@ -1,0 +1,1099 @@
+{
+  "user": "chitralputhran",
+  "profile_source": "data\\procesado\\chitralputhran_processed.jsonl",
+  "total_skill_blocks": 130,
+  "unique_skills": 43,
+  "technical_profile": {
+    "hard_skills": [
+      {
+        "skill": "TypeScript",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8667,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Lenguaje de programación utilizado para desarrollar la aplicación."
+        ],
+        "sample_signals": [
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)"
+        ]
+      },
+      {
+        "skill": "JavaScript",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8667,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Lenguaje de programación utilizado para desarrollar la aplicación."
+        ],
+        "sample_signals": [
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)"
+        ]
+      },
+      {
+        "skill": "ChatPromptTemplate",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8667,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase para crear plantillas de prompts para IA."
+        ],
+        "sample_signals": [
+          "prompt = ChatPromptTemplate.from_template"
+        ]
+      },
+      {
+        "skill": "PydanticOutputParser",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8667,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase para parsear la salida en un objeto Pydantic."
+        ],
+        "sample_signals": [
+          "parser = PydanticOutputParser(pydantic_object=FinalRecipe)"
+        ]
+      },
+      {
+        "skill": "TavilyClient",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8667,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cliente para interactuar con la API de Tavily."
+        ],
+        "sample_signals": [
+          "self.tavily_client = TavilyClient(api_key=tavily_api_key) if tavily_api_key else None"
+        ]
+      },
+      {
+        "skill": "Chroma",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "document_processor.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para la creación y gestión de bases de datos vectoriales."
+        ],
+        "sample_signals": [
+          "return Chroma.from_documents(\n            documents=doc_splits, \n            collection_name=CHROMA_COLLECTION_NAME, \n            embedding=self.embedding_function,\n            persist_directory=CHROMA_PERSIST_DIR\n        )"
+        ]
+      },
+      {
+        "skill": "OpenAIEmbeddings",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "document_processor.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase para crear embeddings utilizando el modelo de OpenAI."
+        ],
+        "sample_signals": [
+          "self.embedding_function = OpenAIEmbeddings()"
+        ]
+      },
+      {
+        "skill": "PyPDFLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "multimodal_loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador de documentos PDF."
+        ],
+        "sample_signals": [
+          "class MultiFormatDocumentLoader:\n    def __init__(self):\n        self.loaders = {\n            \"pdf\": PyPDFLoader,"
+        ]
+      },
+      {
+        "skill": "Docx2txtLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "multimodal_loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador de documentos Word (.docx)."
+        ],
+        "sample_signals": [
+          "\"docx\": Docx2txtLoader,\n            \"doc\": Docx2txtLoader,"
+        ]
+      },
+      {
+        "skill": "CSVLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "multimodal_loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador de archivos CSV."
+        ],
+        "sample_signals": [
+          "\"csv\": CSVLoader,"
+        ]
+      },
+      {
+        "skill": "UnstructuredExcelLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "multimodal_loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador de archivos Excel (.xlsx, .xls)."
+        ],
+        "sample_signals": [
+          "\"xlsx\": UnstructuredExcelLoader,\n            \"xls\": UnstructuredExcelLoader,"
+        ]
+      },
+      {
+        "skill": "TextLoader",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8303,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "multimodal_loader.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Cargador de archivos de texto."
+        ],
+        "sample_signals": [
+          "\"txt\": TextLoader,\n            \"md\": TextLoader,"
+        ]
+      },
+      {
+        "skill": "dotenv",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.8213,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "chains/evaluate.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para cargar variables de entorno desde un archivo .env."
+        ],
+        "sample_signals": [
+          "from dotenv import load_dotenv\nload_dotenv()"
+        ]
+      },
+      {
+        "skill": "Docker",
+        "confidence": "alta",
+        "evidence_count": 3,
+        "avg_composite_score": 0.795,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app.py",
+          "app_config.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "Herramienta para crear y distribuir aplicaciones de forma consistente.",
+          "Herramienta de contenedores, utilizado para la despliegue y gestión del entorno.",
+          "Plataforma para crear, distribuir y ejecutar aplicaciones en contenedores."
+        ],
+        "sample_signals": [
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)",
+          "FROM python:3.9-slim\n\nCOPY requirements.txt .\nRUN pip install -r requirements.txt",
+          "FROM python:3.8-slim\n\nCOPY requirements.txt .\nRUN pip install -r requirements.txt"
+        ]
+      },
+      {
+        "skill": "PostgreSQL",
+        "confidence": "alta",
+        "evidence_count": 3,
+        "avg_composite_score": 0.795,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app.py",
+          "app_config.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "Base de datos relacional utilizada para almacenar datos.",
+          "Sistema de gestión de bases de datos relacional, utilizado para almacenar recetas y configuraciones.",
+          "Sistema de gestión de bases de datos relacional."
+        ],
+        "sample_signals": [
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)",
+          "import psycopg2\n\nconn = psycopg2.connect(database='recipe_db', user='user', password='password', host='localhost', port= '5432')",
+          "import psycopg2\n\nconn = psycopg2.connect(database='mydb', user='user', password='password', host='localhost', port= '5432')"
+        ]
+      },
+      {
+        "skill": "OpenAI API",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.7688,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "chains/question_relevance.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "API para interactuar con modelos de lenguaje de OpenAI."
+        ],
+        "sample_signals": [
+          "llm = ChatOpenAI(temperature=0)"
+        ]
+      },
+      {
+        "skill": "ChatOpenAI",
+        "confidence": "alta",
+        "evidence_count": 4,
+        "avg_composite_score": 0.7652,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app.py",
+          "chains/document_relevance.py",
+          "chains/generate_answer.py",
+          "nodes.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase para interactuar con el modelo de lenguaje OpenAI.",
+          "Clase de LangChain para interactuar con el modelo OpenAI GPT-4."
+        ],
+        "sample_signals": [
+          "llm = ChatOpenAI(temperature=0)",
+          "chat = ChatOpenAI(model_name=OPENAI_MODEL_NAME, temperature=0.9, openai_api_key=openai_api_key)",
+          "self.llm = ChatOpenAI(model=model_name, temperature=0.1, openai_api_key=openai_api_key, max_tokens=4000, timeout=120.0, max_retries=3)"
+        ]
+      },
+      {
+        "skill": "LangGraph",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.7635,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "README.md",
+          "rag_workflow.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para la gestión de estados y orquestación basada en gráficos.",
+          "Librería para el procesamiento y análisis de gráficos de lenguaje natural."
+        ],
+        "sample_signals": [
+          "from langgraph.graph import END, StateGraph\nfrom state import GraphState",
+          "nodes.py\nfrom langchain.graphs import LangGraph\nfrom src.services.recipe_service import process_ingredients"
+        ]
+      },
+      {
+        "skill": "Tavily",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.746,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          ".env.example",
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "API para la búsqueda y recuperación de información en Internet.",
+          "API para buscar y recuperar información de internet."
+        ],
+        "sample_signals": [
+          "TAVILY_API_KEY=your_tavily_api_key_here",
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)"
+        ]
+      },
+      {
+        "skill": "Streamlit",
+        "confidence": "alta",
+        "evidence_count": 16,
+        "avg_composite_score": 0.7356,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py",
+          "document_loader.py",
+          "document_processor.py",
+          "rag_workflow.py",
+          "requirements.txt",
+          "ui_components.py",
+          "utils.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Framework para crear aplicaciones web rápidas en Python.",
+          "Framework para crear aplicaciones web interactivas.",
+          "Framework para crear aplicaciones web interactivas con Python."
+        ],
+        "sample_signals": [
+          "[![Streamlit](https://img.shields.io/badge/Streamlit-1.41.1-red.svg)](https://streamlit.io/)",
+          "import streamlit as st\n\n# Local imports\nfrom config import QUESTION_PLACEHOLDER",
+          "class StreamlitMultiFormatDocumentLoader:",
+          "import streamlit as st"
+        ]
+      },
+      {
+        "skill": "OpenAI",
+        "confidence": "alta",
+        "evidence_count": 6,
+        "avg_composite_score": 0.7336,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          ".env.example",
+          "README.md",
+          "app.py",
+          "chains/evaluate.py",
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Plataforma de IA que ofrece una variedad de servicios, incluyendo el procesamiento del lenguaje natural.",
+          "Plataforma de IA que ofrece API para el procesamiento del lenguaje natural y la generación de contenido.",
+          "API para interactuar con modelos de lenguaje natural de OpenAI"
+        ],
+        "sample_signals": [
+          "OPENAI_API_KEY=your_openai_api_key_here",
+          "from langchain_openai import ChatOpenAI\nllm = ChatOpenAI(temperature=0)",
+          "openai==1.58.1\nimport openai as oai",
+          "openai==1.9.0\nimport openai"
+        ]
+      },
+      {
+        "skill": "LangChain",
+        "confidence": "alta",
+        "evidence_count": 27,
+        "avg_composite_score": 0.7332,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          ".env.example",
+          "README.md",
+          "app.py",
+          "app_config.py",
+          "chains/document_relevance.py",
+          "chains/evaluate.py",
+          "chains/generate_answer.py",
+          "chains/question_relevance.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Framework de IA/LLM para la construcción de aplicaciones de procesamiento del lenguaje natural.",
+          "Framework para la gestión de workflows en sistemas de IA.",
+          "Librería para el procesamiento de lenguaje natural y la construcción de sistemas de IA."
+        ],
+        "sample_signals": [
+          "LANGCHAIN_TRACING_V2=true\nLANGCHAIN_ENDPOINT=\"https://api.smith.langchain.com\"\nLANGCHAIN_API_KEY=your_langchain_api_key_here\nLANGCHAIN_PROJECT=\"Advanced_RAG\"",
+          "[![LangChain](https://img.shields.io/badge/LangChain-0.3.13-blue.svg)](https://python.langchain.com/)",
+          "from rag_workflow import RAGWorkflow\n\n# Initialize components\ndocument_loader = MultiModalDocumentLoader()\ndocument_processor = DocumentProcessor(document_loader)\nrag_workflow = RAGWorkflow()",
+          "from langchain_core.prompts import ChatPromptTemplate\nfrom pydantic import BaseModel, Field\nfrom langchain_core.runnables import RunnableSequence"
+        ]
+      },
+      {
+        "skill": "PyTorch",
+        "confidence": "alta",
+        "evidence_count": 8,
+        "avg_composite_score": 0.7256,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app_config.py",
+          "chains/evaluate.py",
+          "chains/question_relevance.py",
+          "config.py",
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Librería para el aprendizaje automático y la creación de modelos de inteligencia artificial.",
+          "Librería de IA y aprendizaje automático.",
+          "Biblioteca de IA y aprendizaje automático."
+        ],
+        "sample_signals": [
+          "from langchain_openai import ChatOpenAI\nllm = ChatOpenAI(temperature=0)",
+          "from langchain_openai import ChatOpenAI",
+          "LLM_TEMPERATURE = 0\nTAVILY_SEARCH_RESULTS = 2",
+          "torch==2.0.36\nimport torch"
+        ]
+      },
+      {
+        "skill": "Pandas",
+        "confidence": "alta",
+        "evidence_count": 5,
+        "avg_composite_score": 0.7204,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Logistic-Regression-for-Predicting-Survived-Passengers",
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "Survived Prediction _ Supervised Learning .ipynb",
+          "app.py",
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para el análisis y manipulación de datos.",
+          "Biblioteca para el análisis y manipulación de datos en Python",
+          "Biblioteca para el análisis y manipulación de datos tabulares."
+        ],
+        "sample_signals": [
+          "import pandas as pd\n\ndf = pd.DataFrame(summary_data, columns=[\"Metric\", \"Value\"])\nst.table(df)",
+          "pandas==2.2.3\nimport pandas as pd",
+          "pandas==2.2.0\nimport pandas",
+          "import pandas as pd\ntrain = pd.read_csv('../input/train.csv')"
+        ]
+      },
+      {
+        "skill": "Pydantic",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.7058,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "models.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "Modelos de datos para la validación y serialización.",
+          "Se usa para definir esquemas de datos y validar los datos de entrada."
+        ],
+        "sample_signals": [
+          "from pydantic import BaseModel, Field\n\nclass NutritionInfo(BaseModel):\n    calories_per_serving: int = Field(description=\"Calories per serving\")",
+          "from pydantic import BaseModel\n\nclass User(BaseModel):\n    id: int\n    name: str"
+        ]
+      },
+      {
+        "skill": "FastAPI",
+        "confidence": "alta",
+        "evidence_count": 6,
+        "avg_composite_score": 0.7025,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "app_config.py",
+          "config.py",
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Framework para la creación de APIs rápidas y eficientes.",
+          "Framework para crear APIs RESTful con Python",
+          "Framework web rápido para Python, utilizado para la creación de APIs."
+        ],
+        "sample_signals": [
+          "PAGE_TITLE = \"Advanced RAG\"\nPAGE_ICON = \"🔎\"\nLAYOUT = \"wide\"\nSIDEBAR_STATE = \"expanded\"",
+          "fastapi==3.115.6\nfrom fastapi import FastAPI, HTTPException",
+          "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get('/')\ndef read_root():\n    return {'Hello': 'World'}",
+          "from fastapi import FastAPI\napp = FastAPI()"
+        ]
+      },
+      {
+        "skill": "Pickle",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6987,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Módulo de Python para serializar y deserializar objetos en formato binario."
+        ],
+        "sample_signals": [
+          "import pickle\nmodel_1 = pickle.load(open('data/model.sav', 'rb'))"
+        ]
+      },
+      {
+        "skill": "ChromaDB",
+        "confidence": "alta",
+        "evidence_count": 7,
+        "avg_composite_score": 0.6982,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph"
+        ],
+        "evidence_files": [
+          "README.md",
+          "config.py",
+          "requirements.txt",
+          "utils.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Biblioteca para almacenamiento y búsqueda de datos vectoriales.",
+          "Biblioteca para el almacenamiento y búsqueda de vectores.",
+          "Base de datos vectorial para almacenar y recuperar información semántica"
+        ],
+        "sample_signals": [
+          "[![ChromaDB](https://img.shields.io/badge/ChromaDB-0.5.23-purple.svg)](https://www.trychroma.com/)",
+          "CHROMA_COLLECTION_NAME = \"rag-chroma\"\nCHROMA_PERSIST_DIR = \"./.chroma\"",
+          "chromadb==0.5.23\nfrom chromadb import Chroma",
+          "from config import CHROMA_PERSIST_DIR\ndef clear_chroma_db():\n    if os.path.exists(CHROMA_PERSIST_DIR):\n        shutil.rmtree(CHROMA_PERSIST_DIR)\n        print(\"Cleared existing ChromaDB data for fresh start\")"
+        ]
+      },
+      {
+        "skill": "HumanMessage",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6916,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/CodeElevate-AI-Code-Reviewer"
+        ],
+        "evidence_files": [
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase de LangChain para representar mensajes del usuario."
+        ],
+        "sample_signals": [
+          "user_text = HumanMessage(content = contents)"
+        ]
+      },
+      {
+        "skill": "SystemMessage",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6916,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/CodeElevate-AI-Code-Reviewer"
+        ],
+        "evidence_files": [
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Clase de LangChain para representar mensajes del sistema."
+        ],
+        "sample_signals": [
+          "assistant_text = SystemMessage(content= ASSISTANT_PROMPT)"
+        ]
+      },
+      {
+        "skill": "SQLAlchemy",
+        "confidence": "media",
+        "evidence_count": 3,
+        "avg_composite_score": 0.687,
+        "evidence_diversity_score": 0.5,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "requirements.txt"
+        ],
+        "artifact_types": [
+          "commit",
+          "file"
+        ],
+        "sample_explanations": [
+          "ORM para Python que permite interactuar con bases de datos SQL",
+          "ORM para interactuar con bases de datos SQL.",
+          "ORM para Python que facilita el acceso a bases de datos SQL."
+        ],
+        "sample_signals": [
+          "SQLAlchemy==2.0.36\nfrom sqlalchemy import create_engine, Column, Integer, String",
+          "SQLAlchemy==2.0.25\nimport sqlalchemy",
+          "from sqlalchemy import create_engine\nengine = create_engine('sqlite:///example.db')"
+        ]
+      },
+      {
+        "skill": "NumPy",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Logistic-Regression-for-Predicting-Survived-Passengers",
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "Survived Prediction _ Supervised Learning .ipynb",
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca para operaciones numéricas y arrays multidimensionales.",
+          "Librería de Python para operaciones numéricas y arrays multidimensionales."
+        ],
+        "sample_signals": [
+          "import numpy as np"
+        ]
+      },
+      {
+        "skill": "Scikit-learn",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.6724,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Logistic-Regression-for-Predicting-Survived-Passengers",
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "Survived Prediction _ Supervised Learning .ipynb",
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para aprendizaje automático y análisis de datos.",
+          "Biblioteca de aprendizaje automático en Python que proporciona herramientas para la modelización, evaluación y selección de modelos."
+        ],
+        "sample_signals": [
+          "from sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression(solver='lbfgs', max_iter= 1000)\nmodel.fit(X,y)",
+          "from sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler"
+        ]
+      },
+      {
+        "skill": "MIT License",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6617,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Licencia de software utilizada para el proyecto."
+        ],
+        "sample_signals": [
+          "README.md\n[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+        ]
+      },
+      {
+        "skill": "Python",
+        "confidence": "alta",
+        "evidence_count": 5,
+        "avg_composite_score": 0.6541,
+        "evidence_diversity_score": 0.75,
+        "evidence_repositories": [
+          "chitralputhran/Advanced-RAG-LangGraph",
+          "chitralputhran/CodeElevate-AI-Code-Reviewer",
+          "chitralputhran/Recipe-AI-Easy-Recipes"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py"
+        ],
+        "artifact_types": [
+          "commit",
+          "file",
+          "pull_request"
+        ],
+        "sample_explanations": [
+          "Lenguaje de programación principal del proyecto.",
+          "Lenguaje de programación utilizado para desarrollar la aplicación.",
+          "Lenguaje de programación utilizado para desarrollar el sistema."
+        ],
+        "sample_signals": [
+          "python 3.x",
+          "app.py\nimport streamlit as st\nfrom src.services import recipe_service",
+          "# Core imports\nfrom app_config import (\n    COMMON_INGREDIENTS, UI_PAGE_TITLE, UI_PAGE_ICON, UI_LAYOUT, \n    SUPPORTED_SKILL_LEVELS, SUPPORTED_APPLIANCES, SUPPORTED_DIETARY_RESTRICTIONS, SUPPORTED_CUISINES,\n    LLM_MODEL_NAME\n)",
+          "Add badges for Python, License, Streamlit, LangGraph, LangChain, ChromaDB, and Code Style to README"
+        ]
+      },
+      {
+        "skill": "Matplotlib",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6461,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Logistic-Regression-for-Predicting-Survived-Passengers"
+        ],
+        "evidence_files": [
+          "Survived Prediction _ Supervised Learning .ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Librería para crear gráficos y visualizaciones estáticas, animadas e interactivas."
+        ],
+        "sample_signals": [
+          "import matplotlib.pyplot as plt\nsns.heatmap(train.isnull(),yticklabels=False,cbar=False,cmap='plasma')"
+        ]
+      },
+      {
+        "skill": "Seaborn",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.6461,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Logistic-Regression-for-Predicting-Survived-Passengers"
+        ],
+        "evidence_files": [
+          "Survived Prediction _ Supervised Learning .ipynb"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Biblioteca de visualización estadística basada en Matplotlib."
+        ],
+        "sample_signals": [
+          "import seaborn as sns\nsns.countplot(x = 'Survived', data = train)"
+        ]
+      },
+      {
+        "skill": "Flask",
+        "confidence": "media",
+        "evidence_count": 2,
+        "avg_composite_score": 0.5699,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "README.md",
+          "app.py"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework web para Python utilizado para crear la aplicación."
+        ],
+        "sample_signals": [
+          "This is a web application made with the help of Flask, a microframework for Python based on Werkzeug, Jinja 2, and good intentions.",
+          "from flask import Flask, render_template, url_for, request\n\napp = Flask(__name__)"
+        ]
+      },
+      {
+        "skill": "OpenAI's GPT models",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.5566,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/CodeElevate-AI-Code-Reviewer"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Modelos de lenguaje grande (LLM) proporcionados por OpenAI para análisis y generación de texto."
+        ],
+        "sample_signals": [
+          "OpenAI's GPT models"
+        ]
+      },
+      {
+        "skill": "Werkzeug",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.4412,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Framework web utilizado junto con Flask para manejar las solicitudes y respuestas HTTP."
+        ],
+        "sample_signals": [
+          "This is a web application made with the help of Flask, a microframework for Python based on Werkzeug, Jinja 2, and good intentions."
+        ]
+      },
+      {
+        "skill": "Jinja 2",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.4412,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Motor de plantillas utilizado por Flask para renderizar las páginas HTML."
+        ],
+        "sample_signals": [
+          "This is a web application made with the help of Flask, a microframework for Python based on Werkzeug, Jinja 2, and good intentions."
+        ]
+      },
+      {
+        "skill": "Machine Learning",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.4412,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Tecnología utilizada para entrenar y clasificar los muestras de vino."
+        ],
+        "sample_signals": [
+          "On the backend, a machine learning model is classifying the wine sample entered as good or bad. The machine learning model was trained on the Wine Quality Dataset from the UCI Machine Learning Repository."
+        ]
+      },
+      {
+        "skill": "Wine Quality Dataset",
+        "confidence": "media",
+        "evidence_count": 1,
+        "avg_composite_score": 0.4412,
+        "evidence_diversity_score": 0.25,
+        "evidence_repositories": [
+          "chitralputhran/Wine-Glass-Machine-Learning-App"
+        ],
+        "evidence_files": [
+          "README.md"
+        ],
+        "artifact_types": [
+          "file"
+        ],
+        "sample_explanations": [
+          "Conjunto de datos utilizado para entrenar el modelo de aprendizaje automático."
+        ],
+        "sample_signals": [
+          "The machine learning model was trained on the Wine Quality Dataset from the UCI Machine Learning Repository."
+        ]
+      }
+    ]
+  }
+}
