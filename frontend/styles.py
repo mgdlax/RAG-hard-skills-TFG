@@ -33,6 +33,16 @@ _CSS = f"""
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }}
 
+/* La regla universal anterior pisaria la fuente de los iconos de Streamlit
+   (flecha de colapsar la barra lateral, flechas de los expanders), que entonces
+   se mostrarian como texto literal del ligature. Se restaura su fuente. */
+span[data-testid="stIconMaterial"],
+[data-testid="stIconMaterial"],
+.material-icons, .material-icons-outlined, .material-icons-round,
+.material-symbols-rounded, .material-symbols-outlined, .material-symbols-sharp {{
+    font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
+}}
+
 /* ═══════════════════════════════════════════════════════
    GLOBAL
 ═══════════════════════════════════════════════════════ */

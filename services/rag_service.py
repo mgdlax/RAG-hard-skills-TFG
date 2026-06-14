@@ -46,6 +46,11 @@ RAG_STEPS: list[str] = [
 
 _STEP_DELAYS: list[float] = [0.5, 0.7, 0.4, 0.3, 0.4, 1.0]
 
+# Tiempo minimo (segundos) que cada paso informativo del modo real permanece
+# visible en la UI. El retrieval y el ranking son casi instantaneos, asi que sin
+# esta pausa los primeros pasos pasarian demasiado rapido para poder leerse.
+_REAL_STEP_MIN_SECONDS = 0.9
+
 _FRAGMENT_TEMPLATES: list[str] = [
     "Implementación de una cadena RAG con {skill} para recuperar y generar respuestas contextuales.",
     "Uso de {skill} para construir un agente conversacional con memoria persistente.",
@@ -104,6 +109,15 @@ _ANSWER_TEMPLATES: list[str] = [
         "experiencia en {second_skills}."
     ),
 ]
+
+
+# Utilidades
+
+def _hold_step(started_at: float) -> None:
+    """Mantiene el paso actual visible al menos _REAL_STEP_MIN_SECONDS segundos."""
+    remaining = _REAL_STEP_MIN_SECONDS - (time.monotonic() - started_at)
+    if remaining > 0:
+        time.sleep(remaining)
 
 
 # Interfaz pública
@@ -227,18 +241,46 @@ def _real_ask_question(
       - src.rag.retrieval.retrieve_blocks()
       - src.rag.ranking.rank_candidates()
       - src.rag.generation.generate_response()
-    """
-    for step in RAG_STEPS[:-1]:
-        yield (step, False, None)
 
+    Cada paso se emite junto a su fase real de trabajo y se mantiene visible un
+    mínimo de tiempo (_REAL_STEP_MIN_SECONDS) para que el proceso sea perceptible
+    en la UI; el retrieval y el ranking son demasiado rápidos por sí solos.
+    """
     try:
         from src.rag.retrieval import retrieve_blocks    # noqa: PLC0415
         from src.rag.ranking import rank_candidates      # noqa: PLC0415
         from src.rag.generation import generate_response  # noqa: PLC0415
 
-        blocks     = retrieve_blocks(question, n_results=30)
+        # Paso 1: embedding de la consulta
+        t = time.monotonic()
+        yield (RAG_STEPS[0], False, None)
+        _hold_step(t)
+
+        # Paso 2: recuperación de bloques en ChromaDB (trabajo real)
+        t = time.monotonic()
+        yield (RAG_STEPS[1], False, None)
+        blocks = retrieve_blocks(question, n_results=30)
+        _hold_step(t)
+
+        # Paso 3: similitud semántica (calculada dentro del retrieval)
+        t = time.monotonic()
+        yield (RAG_STEPS[2], False, None)
+        _hold_step(t)
+
+        # Paso 4: agrupación de evidencias por usuario
+        t = time.monotonic()
+        yield (RAG_STEPS[3], False, None)
+        _hold_step(t)
+
+        # Paso 5: ranking de candidatos (trabajo real)
+        t = time.monotonic()
+        yield (RAG_STEPS[4], False, None)
         candidates = rank_candidates(blocks, top_k=5)
-        answer     = generate_response(question, candidates)
+        _hold_step(t)
+
+        # Paso 6: generación de la respuesta con el LLM (ya es lento de por sí)
+        yield (RAG_STEPS[5], False, None)
+        answer = generate_response(question, candidates)
 
         # Adaptar formato de candidatos al contrato del frontend
         ranking = [
