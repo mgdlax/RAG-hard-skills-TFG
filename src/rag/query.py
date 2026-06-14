@@ -90,10 +90,9 @@ def run_query(
     if verbose:
         for c in candidates:
             top3 = [s["skill"] for s in c["matched_skills"][:3]]
-            top_confidence = c.get("confidence", "?")
             log.info(
                 f"    @{c['username']:<22} score={c['final_score']:.3f}  "
-                f"confianza={top_confidence}  skills={top3}"
+                f"skills={top3}"
             )
 
     # -- Fase 3: Generacion --------------------------------------------------
@@ -108,12 +107,10 @@ def run_query(
 
     # Resumen en log
     top_candidate = candidates[0] if candidates else {}
-    top_confidence = top_candidate.get("confidence", "n/a")
     consistency = evaluation.get("profile_consistency_score")
     consistency_str = f"{consistency:.2f}" if consistency is not None else "n/a"
     log.info(
-        f"  -> Candidato top: @{top_candidate.get('username', '?')} "
-        f"(confianza={top_confidence}) | "
+        f"  -> Candidato top: @{top_candidate.get('username', '?')} | "
         f"consistencia_perfiles={consistency_str}"
     )
 

@@ -5,7 +5,7 @@ Recibe los bloques recuperados por retrieval.py (mezclados de varios usuarios)
 y los agrupa por username para producir una lista ordenada de candidatos.
 
 Diseño del scoring:
-  - Por bloque: combined_score = semantic_similarity * 0.40 + composite_score * 0.60
+  - Por bloque: combined_score = semantic_similarity * 0.60 + composite_score * 0.40
     (el composite_score es la métrica de calidad determinística del pipeline;
      la similitud semántica mide cuánto coincide con la consulta concreta)
   - Por skill: se queda con el bloque de mayor combined_score (evita duplicados)
@@ -17,39 +17,10 @@ Diseño del scoring:
 from collections import defaultdict
 from typing import Any, Dict, List
 
-SEMANTIC_WEIGHT = 0.40   # Peso de la similitud semántica con la consulta
-COMPOSITE_WEIGHT = 0.60  # Peso de la calidad de evidencia (métricas del pipeline)
+SEMANTIC_WEIGHT = 0.60   # Peso de la similitud semántica con la consulta
+COMPOSITE_WEIGHT = 0.40  # Peso de la calidad de evidencia (métricas del pipeline)
 BREADTH_BONUS_PER_SKILL = 0.02
 MAX_BREADTH_BONUS = 0.10
-
-MIN_FINAL_SCORE = 0.55                     # Por debajo: confianza baja automática
-MIN_SCORE_GAP_FOR_STRONG_RECOMMENDATION = 0.08  # Ventaja sobre el 2º para ser "alta"
-MIN_SKILLS_FOR_CONFIDENCE = 2              # Menos skills → penalizar hacia baja
-
-
-def attach_confidence(candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Añade el campo "confidence" a cada candidato con valor "alta", "media" o "baja".
-
-    Criterios (en orden de prioridad):
-      1. final_score < MIN_FINAL_SCORE → "baja" (score insuficiente)
-      2. Menos de MIN_SKILLS_FOR_CONFIDENCE skills coincidentes → "baja"
-      3. Es el primero Y su ventaja sobre el 2º >= MIN_SCORE_GAP → "alta"
-      4. Resto de casos → "media"
-    """
-    for i, c in enumerate(candidates):
-        score = c["final_score"]
-        n_skills = c.get("skill_count", 0)
-
-        if score < MIN_FINAL_SCORE or n_skills < MIN_SKILLS_FOR_CONFIDENCE:
-            c["confidence"] = "baja"
-        elif i == 0 and len(candidates) >= 2:
-            gap = score - candidates[1]["final_score"]
-            c["confidence"] = "alta" if gap >= MIN_SCORE_GAP_FOR_STRONG_RECOMMENDATION else "media"
-        else:
-            c["confidence"] = "media"
-
-    return candidates
 
 
 def rank_candidates(
@@ -142,8 +113,5 @@ def rank_candidates(
     # Ordenar candidatos y devolver top_k
     candidates.sort(key=lambda c: c["final_score"], reverse=True)
     candidates = candidates[:top_k]
-
-    # Estimación de confianza por candidato
-    attach_confidence(candidates)
 
     return candidates
