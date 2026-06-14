@@ -75,7 +75,7 @@ def rank_candidates(
     if not blocks:
         return []
 
-    # ── Agrupar bloques por usuario ──────────────────────────────────────────
+    # Agrupar bloques por usuario
     user_blocks: Dict[str, List[Dict]] = defaultdict(list)
     for block in blocks:
         username = block.get("username", "unknown")
@@ -84,7 +84,7 @@ def rank_candidates(
     candidates: List[Dict[str, Any]] = []
 
     for username, user_blks in user_blocks.items():
-        # ── Por skill: quedarse con el bloque de mayor combined_score ────────
+        # Por skill: quedarse con el bloque de mayor combined_score
         best_per_skill: Dict[str, Dict] = {}
 
         for b in user_blks:
@@ -117,7 +117,7 @@ def rank_candidates(
         if not best_per_skill:
             continue
 
-        # ── Score de usuario: media + bonus de amplitud ──────────────────────
+        # Score de usuario: media + bonus de amplitud
         skill_scores = [s["combined_score"] for s in best_per_skill.values()]
         avg_score = sum(skill_scores) / len(skill_scores)
 
@@ -139,11 +139,11 @@ def rank_candidates(
             "block_count": len(user_blks),
         })
 
-    # ── Ordenar candidatos y devolver top_k ──────────────────────────────────
+    # Ordenar candidatos y devolver top_k
     candidates.sort(key=lambda c: c["final_score"], reverse=True)
     candidates = candidates[:top_k]
 
-    # ── Estimación de confianza por candidato ─────────────────────────────────
+    # Estimación de confianza por candidato
     attach_confidence(candidates)
 
     return candidates

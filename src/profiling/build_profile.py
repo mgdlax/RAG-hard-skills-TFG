@@ -44,11 +44,11 @@ def _profile_level_diversity(artifact_types: set) -> float:
     return round(len(artifact_types) / max_artifact_types, 4)
 
 
-def _compute_confidence(avg_score: float, evidence_count: int, diversity_profile: int) -> str:
+def _compute_confidence(avg_score: float, evidence_count: int, diversity_profile: float) -> str:
     """
     Categoría cualitativa para presentación en la respuesta RAG.
-    Combina las otras métricas calculadas dando más peso a la media de la calidad
-    a la cantidad de referencias sobre la diversidad de evidencias
+    Pondera la calidad media de las evidencias (60%), la cantidad de
+    evidencias (25%) y la diversidad de tipos de artefacto (15%).
     """
     count_factor = min(evidence_count, 5) / 5
 

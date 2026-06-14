@@ -59,9 +59,7 @@ N_BLOCKS = 30
 TOP_K_RANKING = 10   # Recuperar mas candidatos para calcular metricas hasta k=5
 
 
-# ---------------------------------------------------------------------------
 #  Comprobacion de usuarios disponibles
-# ---------------------------------------------------------------------------
 
 def _check_available_users(strict: bool = False) -> Tuple[List[str], List[str]]:
     """
@@ -80,8 +78,7 @@ def _check_available_users(strict: bool = False) -> Tuple[List[str], List[str]]:
     if missing:
         log.warning(
             f"Usuarios del ground truth NO indexados: {missing}\n"
-            f"  Para indexarlos: edita 'username' en src/main.py y ejecuta "
-            f"'python -m src.main' por cada uno.\n"
+            f"  Para indexarlos: python -m src.main <username> (o --all).\n"
             f"  Las consultas que los requieren seran omitidas."
             if strict else
             f"Usuarios del ground truth NO indexados: {missing}\n"
@@ -93,9 +90,7 @@ def _check_available_users(strict: bool = False) -> Tuple[List[str], List[str]]:
     return available, missing
 
 
-# ---------------------------------------------------------------------------
 #  Evaluacion de una sola consulta
-# ---------------------------------------------------------------------------
 
 def evaluate_query(
     query_data: Dict[str, Any],
@@ -166,9 +161,7 @@ def evaluate_query(
     }
 
 
-# ---------------------------------------------------------------------------
 #  Evaluacion completa
-# ---------------------------------------------------------------------------
 
 def run_evaluation(strict: bool = False) -> Dict[str, Any]:
     """
@@ -270,9 +263,7 @@ def run_evaluation(strict: bool = False) -> Dict[str, Any]:
     return report
 
 
-# ---------------------------------------------------------------------------
 #  Agregacion de metricas
-# ---------------------------------------------------------------------------
 
 def _compute_global_metrics(results: List[Dict[str, Any]]) -> Dict[str, float]:
     """Calcula la media de cada metrica sobre todas las consultas evaluadas."""
@@ -304,9 +295,7 @@ def _compute_category_metrics(
     }
 
 
-# ---------------------------------------------------------------------------
 #  Logging de resultados
-# ---------------------------------------------------------------------------
 
 def _log_global_metrics(metrics: Dict[str, float], results: List[Dict]) -> None:
     """Imprime el resumen de metricas globales."""
@@ -366,9 +355,7 @@ def _log_category_metrics(category_metrics: Dict[str, Dict[str, float]]) -> None
         )
 
 
-# ---------------------------------------------------------------------------
 #  Guardado del informe
-# ---------------------------------------------------------------------------
 
 def _save_report(report: Dict[str, Any]) -> Path:
     """Guarda el informe completo en JSON con timestamp en el nombre."""
@@ -383,9 +370,7 @@ def _save_report(report: Dict[str, Any]) -> Path:
     return output_path
 
 
-# ---------------------------------------------------------------------------
 #  Punto de entrada
-# ---------------------------------------------------------------------------
 
 def main() -> None:
     setup_pipeline_logger(username="evaluation")

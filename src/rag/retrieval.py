@@ -86,10 +86,10 @@ def retrieve_blocks(
             f"Considera acortarla para evitar truncación silenciosa."
         )
 
-    # ── 1. Embedding de la consulta ──────────────────────────────────────────
+    # 1. Embedding de la consulta
     query_embedding = embed_texts([query])[0]
 
-    # ── 2. Construcción del filtro de metadatos ──────────────────────────────
+    # 2. Construcción del filtro de metadatos
     where: Optional[Dict] = None
 
     conditions = []
@@ -103,7 +103,7 @@ def retrieve_blocks(
     elif len(conditions) > 1:
         where = {"$and": conditions}
 
-    # ── 3. Consulta a ChromaDB ───────────────────────────────────────────────
+    # 3. Consulta a ChromaDB
     collection = get_collection()
     total_in_collection = collection.count()
 
@@ -124,7 +124,7 @@ def retrieve_blocks(
 
     results = collection.query(**query_kwargs)
 
-    # ── 4. Formateo de resultados ────────────────────────────────────────────
+    # 4. Formateo de resultados
     blocks: List[Dict[str, Any]] = []
 
     for doc, meta, dist in zip(
@@ -148,7 +148,7 @@ def retrieve_blocks(
         block["semantic_similarity"] = round(1.0 - float(dist) / 2.0, 4)
         blocks.append(block)
 
-    # ── 5. Filtro por similitud semántica mínima ─────────────────────────────
+    # 5. Filtro por similitud semántica mínima
     n_before = len(blocks)
     blocks = [b for b in blocks if b["semantic_similarity"] >= MIN_SEMANTIC_SIMILARITY]
     if len(blocks) < n_before:
@@ -157,7 +157,7 @@ def retrieve_blocks(
             f"{n_before} → {len(blocks)} bloques"
         )
 
-    # ── 6. Limitar bloques por usuario ───────────────────────────────────────
+    # 6. Limitar bloques por usuario
     blocks = _limit_blocks_per_user(blocks)
 
     if blocks:

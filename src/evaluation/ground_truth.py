@@ -30,9 +30,7 @@ USUARIOS DEL SISTEMA:
 from typing import Any, Dict, List
 
 
-# ---------------------------------------------------------------------------
 #  Dataset de ground truth
-# ---------------------------------------------------------------------------
 
 GROUND_TRUTH: Dict[str, Any] = {
     "version": "3.0",
@@ -48,7 +46,7 @@ GROUND_TRUTH: Dict[str, Any] = {
         "HalemoGPA",
     ],
     "queries": [
-        # ── RAG Y RECUPERACION DE INFORMACION ───────────────────────────────
+        # RAG Y RECUPERACION DE INFORMACION
         {
             "id": "q001",
             "category": "rag_systems",
@@ -73,7 +71,7 @@ GROUND_TRUTH: Dict[str, Any] = {
                 "yldzburhan": 1,      # ChromaDB en proyectos de ML/RAG
             },
         },
-        # ── ORQUESTACION CON LANGGRAPH ───────────────────────────────────────
+        # ORQUESTACION CON LANGGRAPH
         {
             "id": "q003",
             "category": "orchestration",
@@ -97,7 +95,7 @@ GROUND_TRUTH: Dict[str, Any] = {
                 "ranguy9304": 1,      # LangGraph es parte del ecosistema LangChain
             },
         },
-        # ── DESPLIEGUE Y PRODUCCION ──────────────────────────────────────────
+        # DESPLIEGUE Y PRODUCCION
         {
             "id": "q005",
             "category": "deployment",
@@ -131,7 +129,7 @@ GROUND_TRUTH: Dict[str, Any] = {
                 "naurjhanvi": 1,      # Interfaces web en algunos proyectos
             },
         },
-        # ── DEEP LEARNING Y VISION ───────────────────────────────────────────
+        # DEEP LEARNING Y VISION
         {
             "id": "q008",
             "category": "deep_learning",
@@ -143,7 +141,7 @@ GROUND_TRUTH: Dict[str, Any] = {
                 "yldzburhan": 1,   # Modelos ML con redes neuronales en competiciones
             },
         },
-        # ── NLP Y ANALISIS DE TEXTO ──────────────────────────────────────────
+        # NLP Y ANALISIS DE TEXTO
         {
             "id": "q009",
             "category": "nlp",
@@ -155,7 +153,7 @@ GROUND_TRUTH: Dict[str, Any] = {
                 "naurjhanvi": 1,   # LLM grounding y RAG implican procesamiento de texto
             },
         },
-        # ── CIENCIA DE DATOS Y ML CLASICO ────────────────────────────────────
+        # CIENCIA DE DATOS Y ML CLASICO
         {
             "id": "q010",
             "category": "data_science",
@@ -171,9 +169,7 @@ GROUND_TRUTH: Dict[str, Any] = {
 }
 
 
-# ---------------------------------------------------------------------------
 #  Helpers de acceso
-# ---------------------------------------------------------------------------
 
 def get_all_queries() -> List[Dict[str, Any]]:
     """Devuelve todas las consultas del ground truth."""

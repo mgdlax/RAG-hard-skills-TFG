@@ -32,7 +32,7 @@ from src.vectorization.indexer import get_index_stats
 DEFAULT_MODEL = DEFAULT_LLM_MODEL
 N_BLOCKS = 30       # Bloques a recuperar de ChromaDB
 TOP_K = 5           # Candidatos a rankear
-PROFILES_DIR = Path("data/profiles")  # Directorio con perfiles técnicos JSON
+PROFILES_DIR = Path("data/perfiles")  # Perfiles técnicos generados por src.profiling
 
 
 def run_query(

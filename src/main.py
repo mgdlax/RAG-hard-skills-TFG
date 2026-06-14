@@ -7,21 +7,20 @@ Ejecuta las 4 fases para un usuario de GitHub:
   3. Perfil        — agrega los bloques en un perfil técnico por skill
   4. Indexación    — vectoriza con minilm-code-search-512 y almacena en ChromaDB
 
-Usuarios objetivo del TFG (empresa de IA/LLM):
-  - hwchase17    : creador de LangChain y LangGraph
-  - jerryjliu    : creador de LlamaIndex
-  - pamelafox    : Microsoft, Azure OpenAI, demos Python/IA
-  - NirDiamant   : tutoriales RAG y agentes con LangChain
-  - Shubhamsaboo : apps de agentes IA con Streamlit y Groq
+Usuarios objetivo del TFG (perfil IA/ML, ver src/evaluation/ground_truth.py):
+  - chitralputhran : RAG + LangGraph + Streamlit, apps de IA generativa
+  - ranguy9304     : RAG terminal con LangGraph, sistemas distribuidos
+  - naurjhanvi     : Edge AI + RAG + LSTM, despliegue Docker/Kubernetes/FastAPI
+  - yldzburhan     : ML/data science, NLP, sistemas de recomendación
+  - HalemoGPA      : deep learning, PyTorch, visión por computador, NLP
 
-  Nota: estos 5 usuarios son los que usa el módulo de evaluación (src/evaluation).
-  Para tests rápidos o usuarios alternativos, edita TARGET_USERS.
+  Estos 5 usuarios son los que usa el módulo de evaluación (src/evaluation).
+  Para usuarios alternativos, pasa el nombre como argumento o edita TARGET_USERS.
 
 Uso:
-  Cambia la variable 'username' o pasa el nombre como argumento:
-    python -m src.main
-    python -m src.main hwchase17
-    python -m src.main --all   (indexa todos los TARGET_USERS)
+  python -m src.main                 (primer usuario de TARGET_USERS)
+  python -m src.main <username>      (un usuario concreto)
+  python -m src.main --all           (todos los TARGET_USERS)
 """
 
 import json
@@ -85,9 +84,7 @@ def run_pipeline(username: str) -> None:
         f"commits/repo={max_commits_per_repo}  model={model}"
     )
 
-    # -------------------------------------------------------------------------
     # FASE 1: Ingesta desde GitHub
-    # -------------------------------------------------------------------------
     log.info("-" * 55)
     log.info("FASE 1 — INGESTA")
     log.info("-" * 55)
@@ -121,12 +118,10 @@ def run_pipeline(username: str) -> None:
     log.info(f"Evidencias: {len(evidences)}  {dict(counter)}")
     log.info(f"FASE 1 OK en {time.time() - t0:.1f}s")
 
-    # -------------------------------------------------------------------------
     # FASE 2: Métricas estructurales + detección de skills con LLM
     # Para cada evidencia: score_evidence() calcula 4 métricas (recency,
     # authorship, artifact_weight, content_richness) y el LLM detecta las
     # skills presentes y genera una explicación. Se emite un bloque por skill.
-    # -------------------------------------------------------------------------
     log.info("-" * 55)
     log.info("FASE 2 — PROCESAMIENTO (metricas + LLM)")
     log.info("-" * 55)
@@ -149,10 +144,8 @@ def run_pipeline(username: str) -> None:
     skills_found = {r.get("skill") for r in processed if r.get("skill")}
     log.info(f"FASE 2 OK en {time.time() - t0:.1f}s")
     log.info(f"  Skills detectadas ({len(skills_found)}): {sorted(skills_found)}")
-    
-    # -------------------------------------------------------------------------
+
     # FASE 3: Perfil tecnico agregado
-    # -------------------------------------------------------------------------
     log.info("-" * 55)
     log.info("FASE 3 — PERFIL TECNICO")
     log.info("-" * 55)
@@ -172,9 +165,7 @@ def run_pipeline(username: str) -> None:
 
     log.info(f"FASE 3 OK en {time.time() - t0:.1f}s")
 
-    # -------------------------------------------------------------------------
     # FASE 4: Vectorizacion e indexacion en ChromaDB
-    # -------------------------------------------------------------------------
     log.info("-" * 55)
     log.info("FASE 4 — INDEXACION EN CHROMADB")
     log.info("-" * 55)

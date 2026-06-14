@@ -1,18 +1,18 @@
 """
 services/rag_service.py — Pipeline RAG de recomendación técnica.
 
-MODO MOCK  (USE_MOCK = True, por defecto)
-    Genera respuestas, rankings y evidencias ficticios pero plausibles
-    a partir de los perfiles cargados en session_state. Las respuestas
-    son coherentes con las skills de los perfiles y la pregunta.
-
-MODO REAL  (USE_MOCK = False)
+MODO REAL  (USE_MOCK = False, por defecto)
     Ejecuta el pipeline RAG real de tres fases:
       Fase 5a — retrieve_blocks()     → embedding + búsqueda en ChromaDB
       Fase 5b — rank_candidates()     → agrupación y scoring por usuario
       Fase 6  — generate_response()   → síntesis narrativa con Ollama
     Devuelve la respuesta textual + ranking + evidencias con el formato
     que espera el frontend.
+
+MODO MOCK  (USE_MOCK = True)
+    Genera respuestas, rankings y evidencias ficticios pero plausibles
+    a partir de los perfiles cargados en session_state. Útil para
+    desarrollar el frontend sin ChromaDB ni Ollama.
 
 CONTRATO DE LA INTERFAZ
     ask_question(question, profiles) devuelve un Generator que hace yield de:
@@ -31,10 +31,8 @@ import random
 import time
 from typing import Generator, Optional
 
-# ─────────────────────────────────────────────────────────────────────────────
 USE_MOCK: bool = False
-"""Cambiar a False para usar ChromaDB + Ollama reales."""
-# ─────────────────────────────────────────────────────────────────────────────
+"""Cambiar a True para simular el pipeline RAG sin ChromaDB ni Ollama."""
 
 # Pasos del pipeline RAG tal como se muestran en la UI
 RAG_STEPS: list[str] = [
@@ -108,9 +106,7 @@ _ANSWER_TEMPLATES: list[str] = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Interfaz pública
-# ─────────────────────────────────────────────────────────────────────────────
 
 def ask_question(
     question: str,
@@ -135,9 +131,7 @@ def ask_question(
         yield from _real_ask_question(question, profiles)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Implementación mock
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _mock_ask_question(
     question: str,
@@ -220,9 +214,7 @@ def _mock_ask_question(
     yield ("Respuesta generada correctamente", True, result)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Implementación real
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _real_ask_question(
     question: str,

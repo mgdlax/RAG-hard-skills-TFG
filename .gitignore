@@ -3,5 +3,6 @@ __pycache__/
 .env
 logs/
 data/chromadb/
+data/evaluation/
 memory/
 .claude/

@@ -23,6 +23,11 @@ log = get_logger(__name__)
 
 DEFAULT_MODEL = DEFAULT_LLM_MODEL
 
+# Sesión HTTP que ignora los proxies del entorno (HTTP_PROXY, HTTPS_PROXY).
+# Ollama corre en localhost y un proxy configurado interceptaría la conexión.
+_session = requests.Session()
+_session.trust_env = False
+
 MAX_SKILLS_PER_CANDIDATE = 4   # Skills mostradas por candidato en el prompt
 MAX_CANDIDATES_IN_PROMPT = 3   # Candidatos incluidos en el contexto RAG
 
@@ -171,7 +176,7 @@ def generate_response(
 
     try:
         log.debug(f"  Llamando a Ollama ({model})...")
-        response = requests.post(
+        response = _session.post(
             OLLAMA_URL,
             json={
                 "model": model,

@@ -1,13 +1,10 @@
-# ── Backend ───────────────────────────────────────────────────────────────────
-PyGithub>=2.1.1
-python-dotenv>=1.0.0
-pydantic>=2.5.0
-tqdm>=4.66.0
-requests>=2.31.0
-sentence-transformers>=2.7.0
-chromadb>=0.5.0
+# Backend
+PyGithub>=2.1.1               # Cliente de la API REST de GitHub
+python-dotenv>=1.0.0          # Carga de GITHUB_TOKEN desde .env
+pydantic>=2.5.0               # Validacion de datos (schemas y respuestas LLM)
+requests>=2.31.0              # Llamadas HTTP a Ollama
+sentence-transformers>=2.7.0  # Modelo de embeddings para indexacion y retrieval
+chromadb>=0.5.0               # Base de datos vectorial local
 
-# ── Frontend (Streamlit) ──────────────────────────────────────────────────────
-streamlit>=1.35.0
-plotly>=5.20.0
-pandas>=2.1.0
+# Frontend
+streamlit>=1.35.0             # Interfaz web de chat

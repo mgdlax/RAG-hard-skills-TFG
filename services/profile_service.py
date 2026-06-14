@@ -1,18 +1,18 @@
 """
 services/profile_service.py — Gestión del pipeline de perfiles de GitHub.
 
-MODO MOCK  (USE_MOCK = True, por defecto)
-    Simula las 8 fases del pipeline con tiempos realistas y genera
-    un perfil técnico plausible a partir del username. No requiere
-    token de GitHub ni Ollama. Ideal para demos y desarrollo del frontend.
-
-MODO REAL  (USE_MOCK = False)
+MODO REAL  (USE_MOCK = False, por defecto)
     Delega en src.main.run_pipeline(), que ejecuta las 4 fases reales:
       Fase 1 — Ingesta desde GitHub (PyGithub)
       Fase 2 — Procesamiento LLM (detección de skills con Ollama)
       Fase 3 — Generación del perfil técnico agregado
       Fase 4 — Vectorización e indexación en ChromaDB
     Requiere: GITHUB_TOKEN en .env y Ollama en localhost:11434.
+
+MODO MOCK  (USE_MOCK = True)
+    Simula las fases del pipeline con tiempos realistas y genera
+    un perfil técnico plausible a partir del username. No requiere
+    token de GitHub ni Ollama. Útil para demos y desarrollo del frontend.
 
 CONTRATO DE LA INTERFAZ
     add_profile(username) devuelve un Generator que hace yield de:
@@ -28,10 +28,8 @@ import time
 from pathlib import Path
 from typing import Generator, Optional
 
-# ─────────────────────────────────────────────────────────────────────────────
 USE_MOCK: bool = False
-"""Cambiar a False para ejecutar el pipeline real (GitHub + LLM + ChromaDB)."""
-# ─────────────────────────────────────────────────────────────────────────────
+"""Cambiar a True para simular el pipeline sin GitHub, Ollama ni ChromaDB."""
 
 # Pasos del pipeline tal como se muestran en la UI
 PIPELINE_STEPS: list[str] = [
@@ -59,9 +57,7 @@ _SKILLS_POOL: list[str] = [
 _STEP_DELAYS: list[float] = [0.3, 0.5, 0.4, 1.1, 0.9, 1.4, 0.6, 0.8]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Interfaz pública
-# ─────────────────────────────────────────────────────────────────────────────
 
 def add_profile(
     username: str,
@@ -82,9 +78,7 @@ def add_profile(
         yield from _real_add_profile(username)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Implementación mock
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _mock_add_profile(
     username: str,
@@ -116,9 +110,7 @@ def _mock_add_profile(
     yield ("Perfil añadido correctamente", True, result)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Implementación real
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _real_add_profile(
     username: str,
@@ -142,27 +134,10 @@ def _real_add_profile(
 
         run_pipeline(username)
 
-        stats        = get_index_stats()
-        user_blocks  = stats["blocks_per_user"].get(username, 0)
+        stats       = get_index_stats()
+        user_blocks = stats["blocks_per_user"].get(username, 0)
+        result      = _build_profile_summary(username, user_blocks)
 
-        # Leer skills del perfil generado
-        profile_path = Path(f"data/perfiles/{username}_profile.json")
-        skills: list[str] = []
-        if profile_path.exists():
-            import json as _json
-            with profile_path.open(encoding="utf-8") as f:
-                data = _json.load(f)
-            skills = list(data.get("skills", {}).keys())[:12]
-
-        result = {
-            "username":               username,
-            "status":                 "completed",
-            "repositories_processed": 6,
-            "evidences_extracted":    user_blocks,
-            "skills_detected":        skills,
-            "profile_path":           str(profile_path),
-            "mock":                   False,
-        }
         yield (PIPELINE_STEPS[-1], False, None)
         yield ("Perfil añadido correctamente", True, result)
 
@@ -170,9 +145,7 @@ def _real_add_profile(
         yield (f"Error en el pipeline: {exc}", True, None)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Utilidades
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _persist_mock_profile(profile: dict) -> None:
     """Guarda el perfil mock en data/profiles/ para referencia."""
@@ -182,55 +155,64 @@ def _persist_mock_profile(profile: dict) -> None:
         json.dump(profile, f, indent=2, ensure_ascii=False)
 
 
+def _build_profile_summary(username: str, indexed_blocks: int) -> dict:
+    """
+    Construye el resumen de perfil que consume el frontend a partir del
+    JSON generado por src.profiling (data/perfiles/<username>_profile.json)
+    y el número de bloques indexados en ChromaDB.
+
+    Si el JSON no existe (usuario indexado en una ejecución antigua),
+    devuelve el resumen con skills y repos vacíos en lugar de fallar.
+    """
+    profile_path = Path(f"data/perfiles/{username}_profile.json")
+
+    skills: list[str] = []
+    repos: set[str] = set()
+    if profile_path.exists():
+        try:
+            with profile_path.open(encoding="utf-8") as f:
+                data = json.load(f)
+            hard_skills = data.get("technical_profile", {}).get("hard_skills", [])
+            # Skills más sólidas primero (por número de evidencias y score medio)
+            hard_skills.sort(
+                key=lambda s: (s.get("evidence_count", 0), s.get("avg_composite_score", 0)),
+                reverse=True,
+            )
+            skills = [s["skill"] for s in hard_skills[:12] if s.get("skill")]
+            for s in hard_skills:
+                repos.update(s.get("evidence_repositories", []))
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    return {
+        "username":               username,
+        "status":                 "completed",
+        "repositories_processed": len(repos),
+        "evidences_extracted":    indexed_blocks,
+        "skills_detected":        skills,
+        "profile_path":           str(profile_path),
+        "mock":                   False,
+    }
+
+
 def load_indexed_profiles() -> list[dict]:
     """
     Reconstruye los perfiles ya indexados en ChromaDB sin re-ejecutar el
-    pipeline. Combina las estadísticas del índice (bloques por usuario)
-    con el JSON de data/perfiles/ para obtener las skills detectadas.
+    pipeline. Permite que el frontend habilite el chat al arrancar con los
+    datos persistidos de sesiones anteriores.
 
-    Devuelve una lista de dicts con el mismo contrato que add_profile(),
-    lista para asignar a st.session_state.profiles al arrancar la app.
+    Devuelve una lista de dicts con el mismo contrato que add_profile().
     """
-    profiles: list[dict] = []
-
     try:
         from src.vectorization.indexer import get_index_stats  # noqa: PLC0415
         stats = get_index_stats()
     except Exception:
-        return profiles
+        return []
 
-    for username, blocks in stats["blocks_per_user"].items():
-        profile_path = Path(f"data/perfiles/{username}_profile.json")
-
-        skills: list[str] = []
-        repos: set[str] = set()
-        if profile_path.exists():
-            try:
-                with profile_path.open(encoding="utf-8") as f:
-                    data = json.load(f)
-                hard_skills = data.get("technical_profile", {}).get("hard_skills", [])
-                # Skills más sólidas primero (por número de evidencias y score)
-                hard_skills.sort(
-                    key=lambda s: (s.get("evidence_count", 0), s.get("avg_composite_score", 0)),
-                    reverse=True,
-                )
-                skills = [s["skill"] for s in hard_skills[:12] if s.get("skill")]
-                for s in hard_skills:
-                    repos.update(s.get("evidence_repositories", []))
-            except (OSError, json.JSONDecodeError):
-                pass
-
-        profiles.append({
-            "username":               username,
-            "status":                 "completed",
-            "repositories_processed": len(repos),
-            "evidences_extracted":    blocks,
-            "skills_detected":        skills,
-            "profile_path":           str(profile_path),
-            "mock":                   False,
-        })
-
-    return profiles
+    return [
+        _build_profile_summary(username, blocks)
+        for username, blocks in stats["blocks_per_user"].items()
+    ]
 
 
 def get_indexed_usernames() -> list[str]:

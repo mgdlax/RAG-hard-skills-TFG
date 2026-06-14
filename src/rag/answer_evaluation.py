@@ -9,7 +9,6 @@ pueden tener errores o lagunas. Esta métrica mide coherencia interna del RAG.
 """
 
 import json
-import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
@@ -29,7 +28,7 @@ STRONG_CLAIM_WORDS = [
 ]
 
 
-# ── Carga y acceso a perfiles ────────────────────────────────────────────────
+# Carga y acceso a perfiles
 
 def load_user_profile(profile_path: Path) -> Optional[Dict[str, Any]]:
     """Carga un perfil técnico JSON desde disco. Devuelve None si falla."""
@@ -57,7 +56,7 @@ def build_profile_skill_index(profile: Dict[str, Any]) -> Dict[str, Dict[str, An
     return index
 
 
-# ── Detección de skills en la respuesta ─────────────────────────────────────
+# Detección de skills en la respuesta
 
 def extract_mentioned_skills(
     answer: str,
@@ -93,25 +92,31 @@ def detect_unsupported_skills(
     candidate_profiles: Dict[str, Dict[str, Dict[str, Any]]],
 ) -> List[str]:
     """
-    Detecta skills mencionadas en la respuesta que NO están en el perfil técnico
-    de ninguno de los candidatos presentados.
+    Detecta skills que la respuesta atribuye a un candidato pero que no
+    aparecen en el perfil técnico agregado de ese candidato.
 
-    Un hit aquí no implica que el LLM inventó la skill (puede ser un alias o
+    Se comparan las matched_skills del ranking (la evidencia que vio el LLM)
+    contra el índice de skills del perfil del mismo usuario. Una discrepancia
+    no implica necesariamente una invención del LLM (puede ser un alias o una
     variante terminológica), pero es una señal útil para revisión manual.
     """
     answer_lower = answer.lower()
+    unsupported: Set[str] = set()
 
-    # Skills que el sistema reconoce (union de perfiles de todos los candidatos)
-    all_system_skills: Set[str] = set()
-    for skill_index in candidate_profiles.values():
-        all_system_skills.update(skill_index.keys())
+    for candidate in candidates:
+        username = candidate.get("username", "")
+        profile_index = candidate_profiles.get(username)
+        if profile_index is None:
+            continue
 
-    # Skills mencionadas en la respuesta que tienen soporte en algún perfil del sistema
-    profile_skills_present = set(extract_mentioned_skills(answer, candidate_profiles))
+        for matched in candidate.get("matched_skills", []):
+            skill = matched.get("skill", "") if isinstance(matched, dict) else str(matched)
+            skill_key = skill.lower().strip()
+            if not skill_key or skill_key not in answer_lower:
+                continue
+            if skill_key not in profile_index:
+                unsupported.add(f"@{username}/{skill}")
 
-    # Las "no soportadas" son aquellas que aparecen en la respuesta pero no en ningún perfil.
-    # Sin NLP avanzado la cobertura es parcial, pero identifica los casos más evidentes.
-    unsupported = [s for s in profile_skills_present if s not in all_system_skills]
     return sorted(unsupported)
 
 
@@ -147,7 +152,7 @@ def detect_overconfident_claims(
     return warnings
 
 
-# ── Evaluación principal ─────────────────────────────────────────────────────
+# Evaluación principal
 
 def evaluate_answer_against_profiles(
     answer: str,

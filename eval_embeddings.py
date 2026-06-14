@@ -10,7 +10,6 @@ Corpus:
   Formato documental: "Skill: {skill} | Evidence: {explanation} | Code: {fragment}"
 
 Casos de prueba (16)
-────────────────────
   C01  rag_real_format    · IA médica con PyTorch
   C02  rag_real_format    · Interfaz web con Streamlit
   C03  rag_real_format    · Explicabilidad visual con Grad-CAM
@@ -29,7 +28,6 @@ Casos de prueba (16)
   C16  cross_lingual      · Consulta ES: JavaScript y DOM
 
 Métricas por caso
-─────────────────
   hit@1        1 si el primer resultado del ranking es relevante
   mrr          reciprocal rank del primer documento relevante
   precision@3  proporción de relevantes en el top 3
@@ -39,18 +37,15 @@ Métricas por caso
   gap          max_sim_rel − max_sim_irr  (>0 = modelo discrimina bien)
 
 Score global
-────────────
   0.35 × hit_rate + 0.25 × MRR + 0.20 × P@3 + 0.10 × R@3 + 0.10 × norm(gap)
   donde norm(gap) = min(max(avg_gap × 5, 0), 1)
 
 Salida
-──────
   · Consola con detalle por caso y tabla resumen
   · embedding_benchmark_results_<timestamp>.csv
   · embedding_benchmark_summary_<timestamp>.md
 
 Uso
-───
   pip install sentence-transformers numpy
   python eval_embeddings.py
 """
@@ -66,9 +61,7 @@ from pathlib import Path
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Configuración
-# ─────────────────────────────────────────────────────────────────────────────
 
 MODELS: dict[str, dict] = {
     "multilingual-e5-small": {
@@ -91,9 +84,7 @@ MAX_IRRELEVANT = 8
 _EXPLANATION_MAX_CHARS = 200
 _FRAGMENT_MAX_CHARS = 300
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Corpus
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_jsonl(path: Path) -> list[dict]:
     records = []
@@ -182,9 +173,7 @@ def build_corpus(records: list[dict]) -> list[dict]:
     return corpus
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Casos de prueba
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class EmbeddingCase:
@@ -345,9 +334,7 @@ CASES: list[EmbeddingCase] = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Estructuras de datos
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class RankedDoc:
@@ -401,9 +388,7 @@ class ModelSummary:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Selección de candidatos (precomputada una vez, compartida por todos los modelos)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def select_candidates(
     case: EmbeddingCase,
@@ -441,9 +426,7 @@ def select_candidates(
     return {"docs": all_docs, "relevant_ids": relevant_ids}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Evaluación
-# ─────────────────────────────────────────────────────────────────────────────
 
 def evaluate_model(
     model_key: str,
@@ -566,9 +549,7 @@ def compute_summary(model_key: str, results: list[CaseResult]) -> ModelSummary:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Presentación en consola
-# ─────────────────────────────────────────────────────────────────────────────
 
 W = 112
 
@@ -648,9 +629,7 @@ def print_summary(summaries: list[ModelSummary]) -> None:
     sep("═")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Exportación
-# ─────────────────────────────────────────────────────────────────────────────
 
 def export_csv(all_results: list[CaseResult], path: Path) -> None:
     rows = []
@@ -768,7 +747,7 @@ def export_markdown(
     ]
 
     for s in sorted(summaries, key=lambda x: x.score, reverse=True):
-        medal = "🥇 " if s.model_key == winner.model_key else ""
+        medal = "*  " if s.model_key == winner.model_key else ""
         lines.append(
             f"| {medal}`{s.model_key}` "
             f"| {s.hit_rate * 100:.1f}% "
@@ -894,9 +873,7 @@ def export_markdown(
     print(f"  → Markdown guardado en: {path}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Runner
-# ─────────────────────────────────────────────────────────────────────────────
 
 def run() -> None:
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -907,7 +884,7 @@ def run() -> None:
     print(f"  {timestamp}")
     print("═" * W)
 
-    # ── Cargar corpus ─────────────────────────────────────────────────────────
+    # Cargar corpus
     if not PROCESSED_PATH.exists():
         print(f"\n  [ERROR] Fichero no encontrado: {PROCESSED_PATH}")
         print("  Ejecuta el pipeline de extracción antes de lanzar el benchmark.")
@@ -928,7 +905,7 @@ def run() -> None:
             if skill not in corpus_skills:
                 print(f"  [WARN] {case.id}: skill relevante '{skill}' no encontrada en corpus.")
 
-    # ── Precomputar candidatos (una sola vez, mismos para todos los modelos) ──
+    # Precomputar candidatos (una sola vez, mismos para todos los modelos)
     rng = random.Random(RANDOM_SEED)
     case_candidates = {
         case.id: select_candidates(case, corpus, rng)
@@ -942,7 +919,7 @@ def run() -> None:
     print(f"\n  Modelos : {list(MODELS.keys())}")
     print(f"  Casos   : {len(CASES)}")
 
-    # ── Evaluar cada modelo ───────────────────────────────────────────────────
+    # Evaluar cada modelo
     all_results: list[CaseResult] = []
     summaries: list[ModelSummary] = []
 
@@ -951,7 +928,7 @@ def run() -> None:
         all_results.extend(results)
         summaries.append(compute_summary(model_key, results))
 
-    # ── Detalle por caso en consola ───────────────────────────────────────────
+    # Detalle por caso en consola
     case_by_id: dict = {}
     for s in summaries:
         for r in s.results:
@@ -969,7 +946,7 @@ def run() -> None:
 
     print_summary(summaries)
 
-    # ── Exportar ──────────────────────────────────────────────────────────────
+    # Exportar
     print("\n  Exportando resultados...")
     export_csv(all_results, OUTPUT_DIR / f"embedding_benchmark_results_{ts_file}.csv")
     export_markdown(

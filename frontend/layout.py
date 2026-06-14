@@ -10,7 +10,7 @@ from __future__ import annotations
 import streamlit as st
 
 
-# ── Cabecera principal ────────────────────────────────────────────────────────
+# Cabecera principal
 
 def render_header() -> None:
     """
@@ -36,7 +36,7 @@ def render_header() -> None:
     st.markdown(html, unsafe_allow_html=True)
 
 
-# ── Barra lateral ─────────────────────────────────────────────────────────────
+# Barra lateral
 
 def render_sidebar_header() -> None:
     """Logo y título de la barra lateral."""

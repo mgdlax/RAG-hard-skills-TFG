@@ -3,9 +3,7 @@ from __future__ import annotations
 from pydantic import BaseModel, Field, field_validator
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Modelos Pydantic — contrato de la respuesta JSON del LLM
-# ─────────────────────────────────────────────────────────────────────────────
 
 class SkillDetection(BaseModel):
     """Una skill detectada por el LLM en una evidencia."""

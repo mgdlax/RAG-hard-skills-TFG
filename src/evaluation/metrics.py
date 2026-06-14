@@ -19,9 +19,7 @@ import math
 from typing import Dict, List, Set
 
 
-# ---------------------------------------------------------------------------
 #  Precision@k
-# ---------------------------------------------------------------------------
 
 def precision_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
@@ -44,9 +42,7 @@ def precision_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     return hits / k
 
 
-# ---------------------------------------------------------------------------
 #  Recall@k
-# ---------------------------------------------------------------------------
 
 def recall_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
@@ -69,9 +65,7 @@ def recall_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     return hits / len(relevant)
 
 
-# ---------------------------------------------------------------------------
 #  MRR (Mean Reciprocal Rank)  — se calcula el RR individual aqui
-# ---------------------------------------------------------------------------
 
 def reciprocal_rank(retrieved: List[str], relevant: Set[str]) -> float:
     """
@@ -98,9 +92,7 @@ def reciprocal_rank(retrieved: List[str], relevant: Set[str]) -> float:
     return 0.0
 
 
-# ---------------------------------------------------------------------------
 #  NDCG@k
-# ---------------------------------------------------------------------------
 
 def ndcg_at_k(retrieved: List[str], grades: Dict[str, int], k: int) -> float:
     """
@@ -148,9 +140,7 @@ def ndcg_at_k(retrieved: List[str], grades: Dict[str, int], k: int) -> float:
     return dcg_val / idcg_val if idcg_val > 0 else 0.0
 
 
-# ---------------------------------------------------------------------------
 #  Agregacion: mean sobre un conjunto de consultas
-# ---------------------------------------------------------------------------
 
 def mean_metric(values: List[float]) -> float:
     """Media aritmetica, devuelve 0.0 para listas vacias."""

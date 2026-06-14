@@ -30,10 +30,13 @@ log = get_logger(__name__)
 
 DEFAULT_MODEL = DEFAULT_LLM_MODEL
 
+# Sesión HTTP que ignora los proxies del entorno (HTTP_PROXY, HTTPS_PROXY).
+# Ollama corre en localhost y un proxy configurado interceptaría la conexión.
+_session = requests.Session()
+_session.trust_env = False
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 #  UTILIDADES JSONL
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_jsonl(input_path: Path) -> List[Dict[str, Any]]:
     records = []
@@ -53,12 +56,11 @@ def save_jsonl(records: List[Dict[str, Any]], output_path: Path) -> None:
             f.write(json.dumps(clean, ensure_ascii=False) + "\n")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  CLIENTE OLLAMA
-# ─────────────────────────────────────────────────────────────────────────────
 
 def call_ollama(prompt: str, model: str = DEFAULT_MODEL) -> str:
-    response = requests.post(
+    """Llama al endpoint de generación de Ollama y devuelve el texto crudo."""
+    response = _session.post(
         OLLAMA_URL,
         json={
             "model": model,
@@ -128,9 +130,7 @@ def _parse_detection_response(response_text: str) -> Optional[DetectionResponse]
         return None
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  DETECCIÓN + ENRIQUECIMIENTO (UN CALL POR EVIDENCIA)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def detect_skills_with_llm(
     base_block: Dict[str, Any],
@@ -198,9 +198,7 @@ def detect_skills_with_llm(
         return []
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  FUNCIÓN PRINCIPAL
-# ─────────────────────────────────────────────────────────────────────────────
 
 def process_raw_user_file(
     input_path: Path,
@@ -249,7 +247,7 @@ def process_raw_user_file(
         artifact_type = record.get("artifact_type", "")
         path = record.get("path", "") or artifact_type
 
-        # ── Paso 1: métricas estructurales (sin LLM) ────────────────────────
+        # Paso 1: métricas estructurales (sin LLM)
         base_block = score_evidence(record)
         composite = base_block["scores"]["composite_score"]
 
@@ -263,7 +261,7 @@ def process_raw_user_file(
             all_blocks.append(base_block)
             continue
 
-        # ── Paso 2: detección de skills + explicaciones (LLM) ───────────────
+        # Paso 2: detección de skills + explicaciones (LLM)
         skill_blocks = detect_skills_with_llm(base_block, model=model)
 
         if not skill_blocks:

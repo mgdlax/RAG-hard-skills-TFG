@@ -7,14 +7,21 @@ st.markdown con HTML/CSS o widgets nativos de Streamlit.
 
 from __future__ import annotations
 
+import html
+
 import streamlit as st
 
-# ── Helpers internos ─────────────────────────────────────────────────────────
+# Helpers internos
+
+def _esc(value: object) -> str:
+    """Escapa contenido dinámico (LLM, GitHub) antes de inyectarlo en HTML."""
+    return html.escape(str(value))
+
 
 def _skill_badges_html(skills: list[str], variant: str = "light") -> str:
     """Genera el HTML con badges de skills."""
     css_class = "rag-skill-badge-light" if variant == "light" else "rag-skill-badge"
-    badges = "".join(f'<span class="{css_class}">{s}</span>' for s in skills)
+    badges = "".join(f'<span class="{css_class}">{_esc(s)}</span>' for s in skills)
     return f'<div class="rag-skills-row">{badges}</div>'
 
 
@@ -40,7 +47,7 @@ def _score_pct(score: float) -> int:
     return int(min(100, max(0, score * 100)))
 
 
-# ── Componentes públicos ──────────────────────────────────────────────────────
+# Componentes públicos
 
 def render_profile_card(profile: dict) -> None:
     """
@@ -50,7 +57,7 @@ def render_profile_card(profile: dict) -> None:
         profile: Dict con keys username, repositories_processed,
                  evidences_extracted, skills_detected, status.
     """
-    username  = profile.get("username", "?")
+    username  = _esc(profile.get("username", "?"))
     repos     = profile.get("repositories_processed", 0)
     evidences = profile.get("evidences_extracted", 0)
     skills    = profile.get("skills_detected", [])
@@ -105,7 +112,7 @@ def render_ranking(ranking: list[dict]) -> None:
 
     card_parts: list[str] = []
     for i, candidate in enumerate(ranking, start=1):
-        username    = candidate.get("username", "?")
+        username    = _esc(candidate.get("username", "?"))
         score       = candidate.get("score", 0.0)
         matched     = candidate.get("matched_skills", [])
         pct         = _score_pct(score)
@@ -154,16 +161,16 @@ def render_evidences(evidences: list[dict]) -> None:
 
     with st.expander(f"Evidencias utilizadas ({len(evidences)})", expanded=False):
         for ev in evidences:
-            username = ev.get("username", "?")
-            repo     = ev.get("repo", "")
-            path     = ev.get("path", "")
-            skill    = ev.get("skill", "")
+            username = _esc(ev.get("username", "?"))
+            repo     = _esc(ev.get("repo", ""))
+            path     = _esc(ev.get("path", ""))
+            skill    = _esc(ev.get("skill", ""))
             fragment = ev.get("fragment", "")
             score    = ev.get("score", 0.0)
 
             artifact_type = ev.get("artifact_type", "")
-            explanation   = ev.get("explanation", "")
-            type_label    = artifact_type if artifact_type else "file"
+            explanation   = _esc(ev.get("explanation", ""))
+            type_label    = _esc(artifact_type) if artifact_type else "file"
 
             code_markers = ("def ", "class ", "import ", "from ", "    ", "\n",
                             "= ", "()", "{", "}", "=>", "->", "return ", "self.")
@@ -173,9 +180,9 @@ def render_evidences(evidences: list[dict]) -> None:
             )
 
             if looks_like_code:
-                fragment_html = f'<pre class="rag-evidence-code"><code>{fragment}</code></pre>'
+                fragment_html = f'<pre class="rag-evidence-code"><code>{_esc(fragment)}</code></pre>'
             elif fragment:
-                fragment_html = f'<p class="rag-evidence-fragment">"{fragment}"</p>'
+                fragment_html = f'<p class="rag-evidence-fragment">"{_esc(fragment)}"</p>'
             else:
                 fragment_html = ""
 
@@ -200,9 +207,10 @@ def render_evidences(evidences: list[dict]) -> None:
             st.markdown(html, unsafe_allow_html=True)
 
 
-def render_welcome_screen() -> None:
+def render_welcome_screen(has_profiles: bool = False) -> None:
     """
     Pantalla de bienvenida cuando no hay mensajes en el chat.
+    El texto de ayuda final depende de si ya hay perfiles cargados.
     """
     examples = [
         "Que perfil recomiendas para construir un sistema RAG con LangChain?",
@@ -212,6 +220,12 @@ def render_welcome_screen() -> None:
     ]
     examples_html = "".join(
         f'<div class="rag-example-query">{q}</div>' for q in examples
+    )
+
+    hint = (
+        "Escribe una pregunta en el chat para empezar."
+        if has_profiles
+        else "Añade uno o mas perfiles de GitHub en la barra lateral para empezar."
     )
 
     html = f"""
@@ -228,7 +242,7 @@ def render_welcome_screen() -> None:
             {examples_html}
         </div>
         <div class="rag-welcome-hint">
-            Añade uno o mas perfiles de GitHub en la barra lateral para empezar.
+            {hint}
         </div>
     </div>
     """

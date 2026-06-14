@@ -25,7 +25,7 @@ from frontend.components import (
 from services.profile_service import add_profile, load_indexed_profiles, PIPELINE_STEPS
 from services.rag_service import ask_question, RAG_STEPS
 
-# ── Configuración de página ──────────────────────────────────────────────────
+# Configuración de página
 st.set_page_config(
     page_title="RAG GitHub Skills",
     page_icon=None,
@@ -35,7 +35,7 @@ st.set_page_config(
 
 inject_custom_css()
 
-# ── Estado de sesión ─────────────────────────────────────────────────────────
+# Estado de sesión
 _DEFAULTS: dict = {
     "messages":       [],
     "profiles":       [],
@@ -52,7 +52,7 @@ if not st.session_state.profiles:
     st.session_state.profiles = load_indexed_profiles()
 
 
-# ── Helper: barra de progreso personalizada ──────────────────────────────────
+# Helper: barra de progreso personalizada
 
 def _render_progress(step_index: int, total_steps: int, label: str) -> None:
     """Actualiza la barra de progreso y el texto descriptivo."""
@@ -71,12 +71,12 @@ def _render_progress(step_index: int, total_steps: int, label: str) -> None:
     )
 
 
-# ── BARRA LATERAL ────────────────────────────────────────────────────────────
+# BARRA LATERAL
 with st.sidebar:
     render_sidebar_header()
     st.markdown("---")
 
-    # ── Añadir perfil ─────────────────────────────────────────────────────
+    # Añadir perfil
     st.markdown(
         '<div style="font-size:0.73rem;font-weight:500;letter-spacing:0.04em;'
         'color:#8b95a3;margin-bottom:0.4rem;text-transform:uppercase;">'
@@ -132,7 +132,7 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # ── Lista de perfiles procesados ──────────────────────────────────────
+    # Lista de perfiles procesados
     if st.session_state.profiles:
         st.markdown(
             '<div style="font-size:0.73rem;font-weight:500;letter-spacing:0.04em;'
@@ -152,10 +152,10 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # ── Métricas del sistema ──────────────────────────────────────────────
+    # Métricas del sistema
     render_sidebar_metrics(st.session_state.profiles)
 
-    # ── Botón para limpiar el chat ────────────────────────────────────────
+    # Botón para limpiar el chat
     if st.session_state.messages:
         st.markdown("<div style='margin-top:1rem;'></div>", unsafe_allow_html=True)
         if st.button("Limpiar conversacion", use_container_width=True):
@@ -165,10 +165,10 @@ with st.sidebar:
             st.rerun()
 
 
-# ── ÁREA PRINCIPAL ───────────────────────────────────────────────────────────
+# ÁREA PRINCIPAL
 render_header()
 
-# ── Historial de mensajes ────────────────────────────────────────────────────
+# Historial de mensajes
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
@@ -178,15 +178,15 @@ for msg in st.session_state.messages:
             if msg.get("evidences"):
                 render_evidences(msg["evidences"])
 
-# ── Pantalla de bienvenida ────────────────────────────────────────────────────
+# Pantalla de bienvenida
 if not st.session_state.messages:
-    render_welcome_screen()
+    render_welcome_screen(has_profiles=bool(st.session_state.profiles))
 
-# ── Aviso si el chat está deshabilitado ──────────────────────────────────────
+# Aviso si el chat está deshabilitado
 if not st.session_state.profiles:
     render_chat_disabled_hint()
 
-# ── Input del chat ───────────────────────────────────────────────────────────
+# Input del chat
 prompt = st.chat_input(
     "Haz una pregunta sobre los perfiles técnicos cargados...",
     disabled=not st.session_state.profiles,

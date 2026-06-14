@@ -21,7 +21,6 @@ import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  PESOS — justificación
 #
 #  content_richness y artifact_weight tienen los pesos más altos porque
@@ -31,7 +30,6 @@ from typing import Any, Dict, Optional
 #  authorship es relevante pero la mayoría de evidencias ya son de repos propios.
 #
 #  recency pesa menos: una skill de hace 2 años sigue siendo válida.
-# ─────────────────────────────────────────────────────────────────────────────
 
 COMPOSITE_WEIGHTS: Dict[str, float] = {
     "recency":          0.15,
@@ -41,7 +39,6 @@ COMPOSITE_WEIGHTS: Dict[str, float] = {
 }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  MÉTRICA 1 · recency
 #  ¿Qué tan reciente es la evidencia?
 #
@@ -49,7 +46,6 @@ COMPOSITE_WEIGHTS: Dict[str, float] = {
 #    hoy      → 1.0
 #    1 año    → 0.50
 #    2 años   → 0.25
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_recency(record: Dict[str, Any]) -> float:
     artifact_type = record.get("artifact_type", "")
@@ -80,7 +76,6 @@ def compute_recency(record: Dict[str, Any]) -> float:
         return 0.5
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  MÉTRICA 2 · authorship
 #  ¿Con qué seguridad se atribuye la evidencia al usuario?
 #
@@ -91,7 +86,6 @@ def compute_recency(record: Dict[str, Any]) -> float:
 #  pull request de otro                    → 0.45
 #  issue propio                            → 0.65
 #  issue de otro                           → 0.35
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_authorship(record: Dict[str, Any]) -> float:
     username = record.get("username", "")
@@ -113,7 +107,6 @@ def compute_authorship(record: Dict[str, Any]) -> float:
     return 0.50
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  MÉTRICA 3 · artifact_weight
 #  ¿Qué tan valioso es este tipo de fichero o artefacto?
 #
@@ -125,7 +118,6 @@ def compute_authorship(record: Dict[str, Any]) -> float:
 #
 #  Para artefactos no-file:
 #    commit > pull_request > issue  (en términos de evidencia técnica directa)
-# ─────────────────────────────────────────────────────────────────────────────
 
 # Ficheros que declaran dependencias explícitas → siempre valiosos.
 # Sin extensión para Dockerfile porque split('.') daría ext vacío.
@@ -192,7 +184,6 @@ def compute_artifact_weight(record: Dict[str, Any]) -> float:
     return 0.50   # tipo desconocido → neutro
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  MÉTRICA 4 · content_richness
 #  ¿Cuánta sustancia técnica tiene el contenido?
 #
@@ -202,7 +193,6 @@ def compute_artifact_weight(record: Dict[str, Any]) -> float:
 #
 #  Para commits / issues / PRs: longitud del texto y presencia de código
 #  incrustado (bloques ```) o términos técnicos.
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_content_richness(record: Dict[str, Any]) -> float:
     artifact_type = record.get("artifact_type", "")
@@ -265,9 +255,7 @@ def _text_richness(text: str) -> float:
     return round(score, 4)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  PUNTUACIÓN COMPUESTA
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_composite_score(scores: Dict[str, float]) -> float:
     return round(
@@ -276,9 +264,7 @@ def compute_composite_score(scores: Dict[str, float]) -> float:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  FUNCIÓN PRINCIPAL
-# ─────────────────────────────────────────────────────────────────────────────
 
 def score_evidence(record: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -288,7 +274,6 @@ def score_evidence(record: Dict[str, Any]) -> Dict[str, Any]:
     aquí: lo añade code_filter.py tras llamar al LLM.
 
     Estructura del bloque devuelto
-    ───────────────────────────────
     username   · usuario analizado
     source     · repo, path, artifact_type, url
     scores     · las 4 métricas + composite_score

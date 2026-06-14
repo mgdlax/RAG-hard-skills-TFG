@@ -2,7 +2,6 @@
 Benchmark de extracción de skills técnicas — comparativa de modelos locales.
 
 Casos de prueba
-───────────────
   C1  true_positive   · Agente multiagente real (LangGraph + tools)
   C2  comment_trap    · LangChain mencionado solo en comentarios/docstrings
   C3  general         · CRUD FastAPI + SQLAlchemy, sin IA
@@ -13,7 +12,6 @@ Casos de prueba
   C8  true_positive   · Agente CrewAI multiagente con herramientas
 
 Métricas
-────────
   precision    TP / (TP + FP)
   recall       TP / (TP + FN)
   f1           media armónica de P y R
@@ -22,13 +20,11 @@ Métricas
   latency      segundos por llamada
 
 Salida
-──────
   · Consola con detalle por caso y resumen global
   · benchmark_results.csv   — tabla completa por caso y modelo
   · benchmark_summary.md    — tabla Markdown con resumen global + conclusión
 
 Uso
-───
   ollama pull qwen2.5-coder:7b && ollama pull qwen3:4b && ollama pull phi4-mini:3.8b
   python benchmark_models.py
 """
@@ -47,9 +43,7 @@ from pydantic import ValidationError
 
 from src.processing.prompts import DetectionResponse, build_detection_prompt
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Configuración — edita MODELS según los que tengas en Ollama
-# ─────────────────────────────────────────────────────────────────────────────
 
 MODELS = [
     "qwen2.5-coder:7b",
@@ -62,9 +56,7 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 OUTPUT_DIR = Path(".")   # directorio donde se guardan los ficheros de resultados
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Casos de prueba
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class BenchmarkCase:
@@ -81,7 +73,7 @@ class BenchmarkCase:
 
 CASES: list[BenchmarkCase] = [
 
-    # ── C1: Agente multiagente real con LangGraph ─────────────────────────────
+    # C1: Agente multiagente real con LangGraph
     BenchmarkCase(
         id="C1",
         name="Agente multiagente real (LangGraph + tools)",
@@ -129,7 +121,7 @@ app = graph.compile()
 """,
     ),
 
-    # ── C2: LangChain solo en comentarios — trampa ────────────────────────────
+    # C2: LangChain solo en comentarios — trampa
     BenchmarkCase(
         id="C2",
         name="Trampa: LangChain solo en comentarios/docstrings",
@@ -174,7 +166,7 @@ def to_numpy_matrix(df: pd.DataFrame) -> np.ndarray:
 """,
     ),
 
-    # ── C3: CRUD FastAPI + SQLAlchemy sin IA ─────────────────────────────────
+    # C3: CRUD FastAPI + SQLAlchemy sin IA
     BenchmarkCase(
         id="C3",
         name="CRUD básico FastAPI + SQLAlchemy (sin IA)",
@@ -233,7 +225,7 @@ def delete_item(item_id: int, db: Session = Depends(get_db)):
 """,
     ),
 
-    # ── C4: Import LangChain sin uso real — ambiguo ───────────────────────────
+    # C4: Import LangChain sin uso real — ambiguo
     BenchmarkCase(
         id="C4",
         name="Ambiguo: import LangChain presente pero sin chain real",
@@ -262,7 +254,7 @@ print("Model name:", llm.model_name)
 """,
     ),
 
-    # ── C5: Entrenamiento PyTorch + HuggingFace ───────────────────────────────
+    # C5: Entrenamiento PyTorch + HuggingFace
     BenchmarkCase(
         id="C5",
         name="Fine-tuning PyTorch + HuggingFace Trainer",
@@ -313,7 +305,7 @@ trainer.train()
 """,
     ),
 
-    # ── C6: Commit de fix genérico — trampa (no hay skills IA) ───────────────
+    # C6: Commit de fix genérico — trampa (no hay skills IA)
     BenchmarkCase(
         id="C6",
         name="Trampa: commit de fix CSS/HTML sin tecnologías IA",
@@ -334,7 +326,7 @@ fix: correct responsive layout on mobile breakpoints
 """,
     ),
 
-    # ── C7: RAG con Anthropic + ChromaDB ─────────────────────────────────────
+    # C7: RAG con Anthropic + ChromaDB
     BenchmarkCase(
         id="C7",
         name="Pipeline RAG con Anthropic Claude + ChromaDB",
@@ -381,7 +373,7 @@ def answer(question: str) -> str:
 """,
     ),
 
-    # ── C8: CrewAI multiagente con herramientas ───────────────────────────────
+    # C8: CrewAI multiagente con herramientas
     BenchmarkCase(
         id="C8",
         name="Agente CrewAI con roles y herramientas personalizadas",
@@ -449,9 +441,7 @@ result = crew.kickoff()
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Cliente Ollama
-# ─────────────────────────────────────────────────────────────────────────────
 
 def call_ollama(model: str, prompt: str) -> tuple[str, float]:
     t0 = time.monotonic()
@@ -484,9 +474,7 @@ def parse_response(text: str) -> Optional[DetectionResponse]:
     return None
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Resultado por (modelo, caso)
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class CaseResult:
@@ -558,9 +546,7 @@ def evaluate(model: str, case: BenchmarkCase) -> CaseResult:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Helpers de presentación
-# ─────────────────────────────────────────────────────────────────────────────
 
 W = 96
 
@@ -576,9 +562,7 @@ def bar(v: Optional[float], width: int = 12) -> str:
     return "█" * filled + "░" * (width - filled)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Cálculo de métricas globales por modelo
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class ModelSummary:
@@ -631,9 +615,7 @@ def compute_summary(model: str, results: list[CaseResult]) -> ModelSummary:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Exportación de resultados
-# ─────────────────────────────────────────────────────────────────────────────
 
 def export_csv(all_results: list[CaseResult], path: Path) -> None:
     """Exporta una fila por (modelo, caso) con todas las métricas."""
@@ -708,14 +690,14 @@ def export_markdown(
         return f"{s.total_latency/60:.1f} min" if s.total_latency >= 60 else f"{s.total_latency:.1f}s"
 
     for s in sorted(summaries, key=lambda x: x.score, reverse=True):
-        medal = "🥇" if s.model == winner.model else ""
+        medal = "*" if s.model == winner.model else ""
         lines.append(
             f"| {medal}`{s.model}` "
             f"| {s.parse_ok}/{s.total} "
             f"| {pct(s.avg_precision).strip()} "
             f"| {pct(s.avg_recall).strip()} "
             f"| {pct(s.avg_f1).strip()} "
-            f"| {'🔴 '+str(s.total_hallucinations) if s.total_hallucinations else '🟢 0'} "
+            f"| {'[!] '+str(s.total_hallucinations) if s.total_hallucinations else '[OK] 0'} "
             f"| {s.avg_latency:.1f}s "
             f"| {fmt_total(s)} "
             f"| **{s.score:.2f}** |"
@@ -748,11 +730,11 @@ def export_markdown(
                 f"| {pct(r.precision).strip()} "
                 f"| {pct(r.recall).strip()} "
                 f"| {pct(r.f1).strip()} "
-                f"| {'🔴 '+str(r.hallucinations) if r.hallucinations else '🟢'} "
+                f"| {'[!] '+str(r.hallucinations) if r.hallucinations else '[OK]'} "
                 f"| {r.elapsed:.1f} |"
             )
 
-    # ── Conclusión automática ─────────────────────────────────────────────────
+    # Conclusión automática
     runner_up = sorted(summaries, key=lambda x: x.score, reverse=True)
     score_gap = runner_up[0].score - runner_up[1].score if len(runner_up) > 1 else 0
 
@@ -797,7 +779,7 @@ def export_markdown(
     for r in all_results:
         if r.case.id == "C4":
             skills_str = ", ".join(sorted(r.detected)) if r.detected else "∅ (conservador)"
-            conservador = "✅ conservador" if not r.detected else "⚠️ agresivo"
+            conservador = "[OK] conservador" if not r.detected else "[!] agresivo"
             lines.append(f"- `{r.model}`: {skills_str} — {conservador}")
 
     lines += [
@@ -813,9 +795,7 @@ def export_markdown(
     print(f"  → Markdown guardado en: {path}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Runner principal
-# ─────────────────────────────────────────────────────────────────────────────
 
 def check_available() -> list[str]:
     try:
@@ -825,7 +805,7 @@ def check_available() -> list[str]:
         for m in MODELS:
             (ok if m in tags else missing).append(m)
         if missing:
-            print(f"  ⚠ No disponibles: {missing}")
+            print(f"  [!] No disponibles: {missing}")
             print(f"    ollama pull " + " && ollama pull ".join(missing))
         return ok
     except Exception as e:
@@ -849,12 +829,12 @@ def run():
 
     all_results: list[CaseResult] = []
 
-    # ── Evaluación por caso ───────────────────────────────────────────────────
+    # Evaluación por caso
     for case in CASES:
         sep("═")
         tipo_tag = {
             "true_positive": "✓ TRUE POSITIVE",
-            "comment_trap":  "⚠ TRAMPA",
+            "comment_trap":  "[!] TRAMPA",
             "general":       "○ GENERAL",
             "ambiguous":     "? AMBIGUO",
         }.get(case.tipo, case.tipo)
@@ -877,19 +857,19 @@ def run():
             print(f"    Detectadas : {sorted(r.detected) if r.detected else '∅'}")
 
             if case.tipo == "ambiguous":
-                conserv = "conservador ✅" if not r.detected else "agresivo ⚠️"
+                conserv = "conservador [OK]" if not r.detected else "agresivo [!]"
                 print(f"    → {conserv}   ⏱ {r.elapsed:.1f}s")
             else:
                 print(f"    Precision  : {pct(r.precision)}  {bar(r.precision)}")
                 print(f"    Recall     : {pct(r.recall)}  {bar(r.recall)}")
                 print(f"    F1         : {pct(r.f1)}  {bar(r.f1)}")
                 if case.forbidden:
-                    icon = "🔴" if r.hallucinations else "🟢"
+                    icon = "[!]" if r.hallucinations else "[OK]"
                     print(f"    {icon} Alucinaciones: {r.hallucinations}")
                 print(f"    ⏱ {r.elapsed:.1f}s")
         print()
 
-    # ── Resumen global ────────────────────────────────────────────────────────
+    # Resumen global
     summaries = [compute_summary(m, [r for r in all_results if r.model == m])
                  for m in available]
     summaries_sorted = sorted(summaries, key=lambda s: s.score, reverse=True)
@@ -902,23 +882,23 @@ def run():
     print(f"  {'Modelo':<{col}} {'Parse':<8} {'Precision':<11} {'Recall':<11} {'F1':<11} {'Alucin.':<10} {'Media/caso':<12} {'Total':<10} {'Score'}")
     sep("·")
     for s in summaries_sorted:
-        medal = "🥇 " if s.model == winner.model else "   "
+        medal = "*  " if s.model == winner.model else "   "
         total_min = f"{s.total_latency/60:.1f}min" if s.total_latency >= 60 else f"{s.total_latency:.1f}s"
         print(
             f"  {medal}{s.model:<{col-3}} {s.parse_ok}/{s.total:<6} "
             f"{pct(s.avg_precision):<11} {pct(s.avg_recall):<11} {pct(s.avg_f1):<11} "
-            f"{'🔴 '+str(s.total_hallucinations) if s.total_hallucinations else '🟢 0':<11} "
+            f"{'[!] '+str(s.total_hallucinations) if s.total_hallucinations else '[OK] 0':<11} "
             f"{s.avg_latency:.1f}s{'':5} {total_min:<10} {s.score:.2f}"
         )
     sep("═")
 
-    # ── Conclusión en consola ─────────────────────────────────────────────────
+    # Conclusión en consola
     print()
     print("  CONCLUSIÓN")
     sep("·")
     print(f"  Modelo recomendado : {winner.model}  (score={winner.score:.2f})")
     print(f"  F1 medio           : {pct(winner.avg_f1)}")
-    print(f"  Alucinaciones      : {'0 ✅' if winner.total_hallucinations == 0 else str(winner.total_hallucinations)+' ⚠️'}")
+    print(f"  Alucinaciones      : {'0 [OK]' if winner.total_hallucinations == 0 else str(winner.total_hallucinations)+' [!]'}")
     fastest = min(summaries, key=lambda s: s.avg_latency)
     total_min = lambda s: f"{s.total_latency/60:.1f}min" if s.total_latency >= 60 else f"{s.total_latency:.1f}s"
     print(f"  Más rápido         : {fastest.model}  ({fastest.avg_latency:.1f}s/llamada · {total_min(fastest)} total)")
@@ -928,11 +908,11 @@ def run():
     print("  Caso C4 (ambiguo):")
     for r in all_results:
         if r.case.id == "C4":
-            tag = "conservador ✅" if not r.detected else f"agresivo ⚠️  → {sorted(r.detected)}"
+            tag = "conservador [OK]" if not r.detected else f"agresivo [!]  → {sorted(r.detected)}"
             print(f"    {r.model:<{col}} {tag}")
     sep("═")
 
-    # ── Exportar resultados ───────────────────────────────────────────────────
+    # Exportar resultados
     print("\n  Exportando resultados...")
     ts_file = datetime.now().strftime("%Y%m%d_%H%M%S")
     export_csv(all_results,  OUTPUT_DIR / f"benchmark_results_{ts_file}.csv")

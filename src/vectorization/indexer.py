@@ -48,8 +48,7 @@ def _safe_id(text: str, max_len: int = 512) -> str:
 #   explanation                     →  ~50 tokens  (200 chars)
 #   " | Code: "             (fijo)  →   ~5 tokens
 #   fragment                        →  ~100 tokens (300 chars de código)
-#   ─────────────────────────────────────────────
-#   Total estimado                  → ~165 tokens  ✓ bien dentro del óptimo (256)
+#   Total estimado                  → ~165 tokens, bien dentro del óptimo (256)
 _EXPLANATION_MAX_CHARS = 200
 _FRAGMENT_MAX_CHARS = 300
 

@@ -30,9 +30,7 @@ LOG_DIR = Path("logs")
 ROOT_LOGGER = "tfg_rag"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  Formateador con colores ANSI para consola
-# ─────────────────────────────────────────────────────────────────────────────
 
 class _ColoredConsoleFormatter(logging.Formatter):
     """
@@ -80,9 +78,7 @@ class _FileFormatter(logging.Formatter):
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 #  API pública
-# ─────────────────────────────────────────────────────────────────────────────
 
 def setup_pipeline_logger(
     username: str = "pipeline",
@@ -109,13 +105,13 @@ def setup_pipeline_logger(
 
     logger.setLevel(logging.DEBUG)
 
-    # ── Handler de consola ───────────────────────────────────────────────────
+    # Handler de consola
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(console_level)
     console_handler.setFormatter(_ColoredConsoleFormatter())
     logger.addHandler(console_handler)
 
-    # ── Handler de fichero ───────────────────────────────────────────────────
+    # Handler de fichero
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = LOG_DIR / f"pipeline_{username}_{timestamp}.log"
 

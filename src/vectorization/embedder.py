@@ -50,8 +50,8 @@ def check_token_lengths(texts: List[str]) -> dict:
 
     Útil para verificar que los documentos a indexar no superan los límites
     del modelo antes de embeddearlos:
-      - EMBEDDING_OPTIMAL_TOKENS (128): longitud de entrenamiento, rendimiento óptimo
-      - EMBEDDING_MAX_TOKENS (256): límite duro, el modelo trunca silenciosamente
+      - EMBEDDING_OPTIMAL_TOKENS (256): longitud de entrenamiento, rendimiento óptimo
+      - EMBEDDING_MAX_TOKENS (512): límite duro, el modelo trunca silenciosamente
 
     Ejemplo de uso:
         stats = check_token_lengths(documents)
@@ -72,8 +72,8 @@ def check_token_lengths(texts: List[str]) -> dict:
 
     stats = {
         "total": len(lengths),
-        "over_optimal": over_optimal,   # superan 128 tokens (fuera del rango óptimo)
-        "over_max": over_max,           # superan 256 tokens (truncación silenciosa)
+        "over_optimal": over_optimal,   # superan el rango óptimo del modelo
+        "over_max": over_max,           # superan el límite duro (truncación silenciosa)
         "max_tokens": max(lengths) if lengths else 0,
         "avg_tokens": round(sum(lengths) / len(lengths), 1) if lengths else 0,
     }
