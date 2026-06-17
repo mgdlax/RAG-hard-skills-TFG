@@ -90,6 +90,9 @@ def rank_candidates(
 
         # Score de usuario: media + bonus de amplitud
         skill_scores = [s["combined_score"] for s in best_per_skill.values()]
+        if not skill_scores:
+            continue
+
         avg_score = sum(skill_scores) / len(skill_scores)
 
         breadth_bonus = min(len(best_per_skill) * BREADTH_BONUS_PER_SKILL, MAX_BREADTH_BONUS)

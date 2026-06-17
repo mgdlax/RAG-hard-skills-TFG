@@ -189,7 +189,9 @@ def run_pipeline(username: str) -> None:
     if profile_path.exists():
         with profile_path.open(encoding="utf-8") as f:
             profile_data = json.load(f)
-        profile_data["last_run_at"] = datetime.datetime.utcnow().isoformat()
+        profile_data["last_run_at"] = datetime.datetime.now(
+            datetime.timezone.utc
+        ).isoformat()
         with profile_path.open("w", encoding="utf-8") as f:
             json.dump(profile_data, f, indent=2, ensure_ascii=False)
 

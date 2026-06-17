@@ -267,10 +267,11 @@ def _fallback_response(
         sep,
     ]
     for c in candidates[:MAX_CANDIDATES_IN_PROMPT]:
-        top = ", ".join(s["skill"] for s in c["matched_skills"][:3])
+        matched_skills = c.get("matched_skills", [])
+        skill_count = len(matched_skills)
+        top_skills = ", ".join(s["skill"] for s in matched_skills[:3])
         lines.append(
-            f"@{c['username']:<21} {c['skill_count']:<8} {c['final_score']:.3f}"
-            f"  ({top})"
+            f"@{c['username']:<21} {skill_count:<8} {c['final_score']:.3f}  ({top_skills})"
         )
 
     # Referencias deterministas (identicas al modo LLM)

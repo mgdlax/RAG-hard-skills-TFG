@@ -41,15 +41,15 @@ st.set_page_config(
 inject_custom_css()
 
 # Estado de sesión
-_DEFAULTS: dict = {
+_DEFAULTS: dict[str, list] = {
     "messages":       [],
     "profiles":       [],
     "last_ranking":   [],
     "last_evidences": [],
 }
-for _k, _v in _DEFAULTS.items():
-    if _k not in st.session_state:
-        st.session_state[_k] = _v
+for key, default_value in _DEFAULTS.items():
+    if key not in st.session_state:
+        st.session_state[key] = default_value
 
 # Precargar perfiles ya indexados en ChromaDB para habilitar el chat
 # sin tener que re-ejecutar el pipeline en cada sesión.
@@ -60,7 +60,14 @@ if not st.session_state.profiles:
 # Helper: barra de progreso personalizada
 
 def _render_progress(step_index: int, total_steps: int, label: str) -> None:
-    """Actualiza la barra de progreso y el texto descriptivo."""
+    """
+    Renderiza una barra de progreso visual con etiqueta y contador de pasos.
+
+    Args:
+        step_index: Número del paso actual (1-based).
+        total_steps: Número total de pasos en la secuencia.
+        label: Descripción del paso actual (ej. "Conectando con GitHub").
+    """
     pct = int(min(100, (step_index / total_steps) * 100))
     st.markdown(
         f"""

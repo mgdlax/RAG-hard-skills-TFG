@@ -226,8 +226,11 @@ def load_indexed_profiles() -> list[dict]:
 
 def get_indexed_usernames() -> list[str]:
     """
-    Devuelve los usernames disponibles.
+    Devuelve los usernames disponibles en ChromaDB.
     En modo mock lee data/profiles/; en modo real consulta ChromaDB.
+
+    Returns:
+        Lista de usernames indexados. Lista vacía si no hay datos o error.
     """
     if USE_MOCK:
         profiles_dir = Path("data/profiles")
@@ -238,7 +241,10 @@ def get_indexed_usernames() -> list[str]:
     try:
         from src.vectorization.indexer import get_index_stats  # noqa: PLC0415
         return list(get_index_stats()["blocks_per_user"].keys())
-    except Exception:
+    except (FileNotFoundError, KeyError, ValueError) as exc:
+        from src.utils.logger import get_logger  # noqa: PLC0415
+        logger = get_logger(__name__)
+        logger.warning(f"No se pudieron cargar usernames indexados: {exc}")
         return []
 
 
@@ -251,7 +257,15 @@ def has_github_activity(username: str, github) -> bool:
 
     Compara repo.pushed_at con el campo last_run_at del perfil JSON.
     Si no hay perfil, no hay last_run_at o falla el acceso a GitHub,
-    devuelve True para actualizar por seguridad.
+    devuelve True (actualizar por seguridad).
+
+    Args:
+        username: Usuario de GitHub a chequear
+        github: Cliente de PyGithub conectado
+
+    Returns:
+        True si hay actividad nueva o no se pudo conectar (seguridad)
+        False si no hay cambios desde última indexación
     """
     profile_path = Path(f"data/perfiles/{username}_profile.json")
     if not profile_path.exists():
@@ -272,7 +286,10 @@ def has_github_activity(username: str, github) -> bool:
             pushed = repo.pushed_at
             if pushed and pushed.replace(tzinfo=datetime.timezone.utc) > last_run:
                 return True
-    except Exception:
+    except (ConnectionError, TimeoutError, AttributeError) as exc:
+        from src.utils.logger import get_logger  # noqa: PLC0415
+        logger = get_logger(__name__)
+        logger.debug(f"Error conectando GitHub para @{username}, asumiendo actividad: {exc}")
         return True
 
     return False

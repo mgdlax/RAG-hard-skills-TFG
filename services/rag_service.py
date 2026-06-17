@@ -159,7 +159,12 @@ def _mock_ask_question(
         yield (step, False, None)
 
     if not profiles:
-        yield ("Sin perfiles disponibles para rankear.", True, None)
+        result = {
+            "answer": "No hay perfiles disponibles para rankear.",
+            "ranking": [],
+            "evidences": [],
+        }
+        yield ("Sin perfiles disponibles para rankear.", True, result)
         return
 
     # Scoring: ponderar por cuántas skills del perfil aparecen en la pregunta
