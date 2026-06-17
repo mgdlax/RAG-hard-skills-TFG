@@ -22,7 +22,12 @@ from frontend.components import (
     render_welcome_screen,
     render_chat_disabled_hint,
 )
-from services.profile_service import add_profile, load_indexed_profiles, PIPELINE_STEPS
+from services.profile_service import (
+    add_profile,
+    load_indexed_profiles,
+    update_profiles,
+    PIPELINE_STEPS,
+)
 from services.rag_service import ask_question, RAG_STEPS
 
 # Configuración de página
@@ -143,6 +148,28 @@ with st.sidebar:
         for profile in st.session_state.profiles:
             with st.expander(f"@{profile['username']}", expanded=False):
                 render_profile_card(profile)
+
+        # Botón para buscar cambios en GitHub y re-indexar lo que tenga actividad
+        if st.button("Buscar cambios y actualizar", use_container_width=True):
+            progress_slot = st.empty()
+            resumen = None
+
+            for mensaje, is_final, data in update_profiles():
+                progress_slot.info(mensaje)
+                if is_final:
+                    resumen = data
+
+            progress_slot.empty()
+            if resumen is None:
+                st.warning("No se pudieron actualizar los perfiles.")
+            else:
+                # Recargar los perfiles para reflejar los datos actualizados
+                st.session_state.profiles = load_indexed_profiles()
+                st.success(
+                    f"{len(resumen['updated'])} actualizados, "
+                    f"{len(resumen['skipped'])} sin cambios."
+                )
+                st.rerun()
     else:
         st.markdown(
             '<div style="font-size:0.78rem;color:rgba(255,255,255,0.28);'

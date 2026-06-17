@@ -4,6 +4,7 @@ Benchmark de modelos de embeddings para el sistema RAG de RRHH.
 Compara:
   · intfloat/multilingual-e5-small                      (multilingüe, 384 dims, prefijo query:/passage:)
   · isuruwijesiri/all-MiniLM-L6-v2-code-search-512      (code search, 384 dims, sin prefijo)
+  · sentence-transformers/all-MiniLM-L6-v2              (general-purpose, 384 dims, sin prefijo)
 
 Corpus:
   Construido desde data/procesado/HalemoGPA_processed.jsonl + 2 documentos sintéticos.
@@ -71,6 +72,11 @@ MODELS: dict[str, dict] = {
     },
     "minilm-code-search-512": {
         "name": "isuruwijesiri/all-MiniLM-L6-v2-code-search-512",
+        "query_prefix": "",
+        "doc_prefix": "",
+    },
+    "all-minilm-l6-v2": {
+        "name": "sentence-transformers/all-MiniLM-L6-v2",
         "query_prefix": "",
         "doc_prefix": "",
     },

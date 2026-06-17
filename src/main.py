@@ -23,6 +23,7 @@ Uso:
   python -m src.main --all           (todos los TARGET_USERS)
 """
 
+import datetime
 import json
 import sys
 import time
@@ -183,6 +184,14 @@ def run_pipeline(username: str) -> None:
     for u, count in stats["blocks_per_user"].items():
         n_skills = stats["unique_skills_per_user"].get(u, 0)
         log.info(f"    @{u}: {count} bloques, {n_skills} skills")
+
+    # Guardar last_run_at para detectar cambios en futuras ejecuciones
+    if profile_path.exists():
+        with profile_path.open(encoding="utf-8") as f:
+            profile_data = json.load(f)
+        profile_data["last_run_at"] = datetime.datetime.utcnow().isoformat()
+        with profile_path.open("w", encoding="utf-8") as f:
+            json.dump(profile_data, f, indent=2, ensure_ascii=False)
 
     # Resumen
     total = time.time() - t_total

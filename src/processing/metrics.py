@@ -21,16 +21,6 @@ import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
-#  PESOS — justificación
-#
-#  content_richness y artifact_weight tienen los pesos más altos porque
-#  determinan si el LLM tendrá algo útil que analizar: un fichero de 3 líneas
-#  o un README vacío no aportan evidencia independientemente de su fecha.
-#
-#  authorship es relevante pero la mayoría de evidencias ya son de repos propios.
-#
-#  recency pesa menos: una skill de hace 2 años sigue siendo válida.
-
 COMPOSITE_WEIGHTS: Dict[str, float] = {
     "recency":          0.15,
     "authorship":       0.20,

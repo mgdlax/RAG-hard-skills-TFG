@@ -22,6 +22,7 @@ CONTRATO DE LA INTERFAZ
 
 from __future__ import annotations
 
+import datetime
 import json
 import random
 import time
@@ -206,7 +207,15 @@ def load_indexed_profiles() -> list[dict]:
     try:
         from src.vectorization.indexer import get_index_stats  # noqa: PLC0415
         stats = get_index_stats()
-    except Exception:
+    except Exception as exc:
+        # No tragarse el error: si falla aquí (p.ej. falta torchvision en la
+        # cadena sentence-transformers, o ChromaDB no está accesible), el
+        # frontend mostraría "0 perfiles / ChromaDB simulado" sin ninguna
+        # pista de por qué. Dejar traza en el log para poder diagnosticarlo.
+        from src.utils.logger import get_logger  # noqa: PLC0415
+        get_logger(__name__).error(
+            f"No se pudieron cargar los perfiles indexados: {exc}", exc_info=True
+        )
         return []
 
     return [
@@ -231,3 +240,89 @@ def get_indexed_usernames() -> list[str]:
         return list(get_index_stats()["blocks_per_user"].keys())
     except Exception:
         return []
+
+
+# Actualización de perfiles existentes
+
+def has_github_activity(username: str, github) -> bool:
+    """
+    Devuelve True si algún repositorio del usuario ha sido actualizado
+    (nuevos commits o código) desde la última vez que se indexó.
+
+    Compara repo.pushed_at con el campo last_run_at del perfil JSON.
+    Si no hay perfil, no hay last_run_at o falla el acceso a GitHub,
+    devuelve True para actualizar por seguridad.
+    """
+    profile_path = Path(f"data/perfiles/{username}_profile.json")
+    if not profile_path.exists():
+        return True
+
+    try:
+        with profile_path.open(encoding="utf-8") as f:
+            profile_data = json.load(f)
+        last_run = datetime.datetime.fromisoformat(
+            profile_data.get("last_run_at", "2000-01-01T00:00:00")
+        ).replace(tzinfo=datetime.timezone.utc)
+    except (json.JSONDecodeError, ValueError, KeyError):
+        return True
+
+    try:
+        user = github.get_user(username)
+        for repo in user.get_repos():
+            pushed = repo.pushed_at
+            if pushed and pushed.replace(tzinfo=datetime.timezone.utc) > last_run:
+                return True
+    except Exception:
+        return True
+
+    return False
+
+
+def update_profiles() -> Generator[tuple[str, bool, Optional[dict]], None, None]:
+    """
+    Busca cambios en GitHub para los perfiles ya indexados y re-ejecuta el
+    pipeline solo en aquellos con actividad nueva (commits o código añadido).
+
+    Es la misma lógica que usa la actualización por línea de comandos, pensada
+    para invocarse también desde un botón del frontend.
+
+    Yields:
+        (mensaje, is_final, resultado)
+          - Durante el proceso: (mensaje, False, None)
+          - Al terminar:        (resumen, True, {"updated": [...], "skipped": [...]})
+            o (mensaje_error, True, None) si no se pudo conectar con GitHub.
+    """
+    try:
+        from src.ingestion.github_client import get_github_client  # noqa: PLC0415
+        from src.main import run_pipeline                          # noqa: PLC0415
+        github = get_github_client()
+    except Exception as exc:
+        yield (f"No se pudo conectar con GitHub: {exc}", True, None)
+        return
+
+    usernames = get_indexed_usernames()
+    if not usernames:
+        yield ("No hay perfiles indexados que actualizar.", True,
+               {"updated": [], "skipped": []})
+        return
+
+    updated: list[str] = []
+    skipped: list[str] = []
+
+    for username in usernames:
+        yield (f"Comprobando @{username}...", False, None)
+        try:
+            if has_github_activity(username, github):
+                yield (f"Actividad detectada en @{username}, re-indexando...", False, None)
+                run_pipeline(username)
+                updated.append(username)
+            else:
+                skipped.append(username)
+        except Exception as exc:
+            yield (f"Error al actualizar @{username}: {exc}", False, None)
+
+    yield (
+        f"{len(updated)} actualizados, {len(skipped)} sin cambios.",
+        True,
+        {"updated": updated, "skipped": skipped},
+    )

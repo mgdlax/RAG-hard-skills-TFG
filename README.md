@@ -23,7 +23,7 @@
 13. [Benchmarking](#13-benchmarking)
 14. [Estructura de directorios](#14-estructura-de-directorios)
 15. [Solución de problemas](#15-solución-de-problemas)
-16. [Actualización automática diaria](#16-actualización-automática-diaria)
+16. [Actualización de perfiles bajo demanda](#16-actualización-de-perfiles-bajo-demanda)
 
 ---
 
@@ -558,14 +558,14 @@ En modo `--all` todos los usuarios comparten el fichero de log del primero (el l
 
 ---
 
-## 16. Actualización automática diaria
+## 16. Actualización de perfiles bajo demanda
 
-El sistema puede re-ejecutar el pipeline automáticamente cada día a las 9:00 AM para mantener los perfiles al día, **pero solo si el usuario ha tenido actividad real en GitHub** (nuevos commits, repositorios actualizados). Así se evita lanzar el pipeline —que puede tardar varios minutos— cuando no hay nada nuevo.
+Los perfiles indexados pueden quedarse desactualizados cuando el usuario sube nuevos commits o repositorios a GitHub. Para refrescarlos hay un botón **"Buscar cambios y actualizar"** en la barra lateral del frontend, que **solo re-indexa los usuarios con actividad real en GitHub**. Así se evita lanzar el pipeline —que puede tardar varios minutos— cuando no hay nada nuevo.
 
 ### Cómo funciona
 
 ```
-09:00 AM → Task Scheduler lanza update_profiles.py
+Botón "Buscar cambios y actualizar"  (o  python update_profiles.py)
   └─ get_indexed_usernames()           lista de usuarios en ChromaDB
        └─ para cada usuario:
             ¿algún repo.pushed_at > last_run_at guardado en el perfil JSON?
@@ -579,132 +579,17 @@ El sistema puede re-ejecutar el pipeline automáticamente cada día a las 9:00 A
 
 La detección de cambios compara el campo `pushed_at` de cada repositorio del usuario —disponible en la API de GitHub sin coste adicional de rate limit— contra el campo `last_run_at` guardado en `data/perfiles/<username>_profile.json` al final de cada ejecución del pipeline.
 
-### Script de actualización — `update_profiles.py`
+### Lógica reutilizable — `services/profile_service.py`
 
-Crear en la raíz del proyecto:
+Toda la lógica vive en la función `update_profiles()`, un generador que va informando del progreso (mensaje, is_final, resumen). La usan tanto el botón del frontend ([`app.py`](app.py)) como el script de consola, de modo que el comportamiento es exactamente el mismo en ambos casos.
 
-```python
-"""
-update_profiles.py — Re-indexa los usuarios de ChromaDB solo si han tenido
-actividad en GitHub desde la última ejecución del pipeline.
-"""
-
-import datetime
-import json
-from pathlib import Path
-
-from services.profile_service import get_indexed_usernames
-from src.ingestion.github_client import get_github_client
-from src.main import run_pipeline
-
-
-def has_changes(username: str, github) -> bool:
-    """Devuelve True si algún repo del usuario fue actualizado desde last_run_at."""
-    profile_path = Path(f"data/perfiles/{username}_profile.json")
-    if not profile_path.exists():
-        return True  # nunca procesado → actualizar siempre
-
-    with profile_path.open(encoding="utf-8") as f:
-        data = json.load(f)
-
-    last_run = datetime.datetime.fromisoformat(
-        data.get("last_run_at", "2000-01-01T00:00:00")
-    ).replace(tzinfo=datetime.timezone.utc)
-
-    user = github.get_user(username)
-    for repo in user.get_repos():
-        pushed = repo.pushed_at
-        if pushed and pushed.replace(tzinfo=datetime.timezone.utc) > last_run:
-            return True
-    return False
-
-
-if __name__ == "__main__":
-    gh = get_indexed_usernames and get_github_client()
-    for username in get_indexed_usernames():
-        if has_changes(username, gh):
-            print(f"[UPDATE] {username} — actividad detectada, re-indexando...")
-            run_pipeline(username)
-        else:
-            print(f"[SKIP]   {username} — sin cambios desde la última ejecución")
-```
-
-Además, al final de `run_pipeline()` en [`src/main.py`](src/main.py) hay que guardar la marca de tiempo. Añadir justo antes del bloque `# Resumen`:
-
-```python
-import datetime  # añadir al bloque de imports del fichero
-
-# Guardar last_run_at para que update_profiles.py detecte cambios futuros
-profile_path = Path(f"data/perfiles/{username}_profile.json")
-if profile_path.exists():
-    with profile_path.open(encoding="utf-8") as f:
-        profile_data = json.load(f)
-    profile_data["last_run_at"] = datetime.datetime.utcnow().isoformat()
-    with profile_path.open("w", encoding="utf-8") as f:
-        json.dump(profile_data, f, indent=2, ensure_ascii=False)
-```
-
-### Programar la tarea en Windows
-
-Ejecutar una sola vez desde PowerShell con permisos de administrador:
-
-```powershell
-$action = New-ScheduledTaskAction `
-    -Execute "python" `
-    -Argument "update_profiles.py" `
-    -WorkingDirectory "U:\quinto\TFG\TFG_Inso\_ejecutable\tfg-rag-github"
-
-$trigger = New-ScheduledTaskTrigger -Daily -At "09:00"
-
-Register-ScheduledTask `
-    -TaskName "TFG_UpdateProfiles" `
-    -Action $action `
-    -Trigger $trigger `
-    -RunLevel Highest
-```
-
-La tarea funciona aunque la interfaz Streamlit esté cerrada.
-
-### Gestión de la tarea
-
-```powershell
-# Verificar que está registrada
-Get-ScheduledTask -TaskName "TFG_UpdateProfiles"
-
-# Ejecutar manualmente (sin esperar a las 9 AM)
-Start-ScheduledTask -TaskName "TFG_UpdateProfiles"
-
-# Eliminarla
-Unregister-ScheduledTask -TaskName "TFG_UpdateProfiles" -Confirm:$false
-```
-
-### Cómo probarla sin esperar al día siguiente
-
-**Opción 1 — Ejecución directa del script** (la más rápida):
+### Desde la línea de comandos
 
 ```bash
 python update_profiles.py
 ```
 
-Muestra qué usuarios se actualizarían y cuáles se saltarían. Si se quiere forzar la actualización de todos, borrar temporalmente el campo `last_run_at` de un perfil JSON o eliminar el fichero.
-
-**Opción 2 — Lanzar la tarea programada manualmente**:
-
-```powershell
-Start-ScheduledTask -TaskName "TFG_UpdateProfiles"
-```
-
-Ejecuta exactamente el mismo flujo que se disparará cada mañana. La salida queda en los logs de `logs/pipeline_<usuario>_<timestamp>.log`.
-
-**Opción 3 — Avanzar el reloj de la tarea** para probar el disparo automático:
-
-```powershell
-# Cambiar el trigger a 2 minutos desde ahora
-$trigger = New-ScheduledTaskTrigger -Once -At ((Get-Date).AddMinutes(2))
-Set-ScheduledTask -TaskName "TFG_UpdateProfiles" -Trigger $trigger
-```
-
-Restaurar después con el comando `Register-ScheduledTask` original.
+Muestra qué usuarios se actualizan y cuáles se saltan. Para forzar la actualización de todos, borrar el campo `last_run_at` de un perfil JSON o eliminar el fichero.
 
 ---
 

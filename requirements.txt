@@ -4,6 +4,7 @@ python-dotenv>=1.0.0          # Carga de GITHUB_TOKEN desde .env
 pydantic>=2.5.0               # Validacion de datos (schemas y respuestas LLM)
 requests>=2.31.0              # Llamadas HTTP a Ollama
 sentence-transformers>=2.7.0  # Modelo de embeddings para indexacion y retrieval
+torchvision>=0.15.0           # Requerido por transformers/sentence-transformers al importar
 chromadb>=0.5.0               # Base de datos vectorial local
 
 # Frontend
